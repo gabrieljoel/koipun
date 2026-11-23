@@ -5,7 +5,8 @@
  *   2. /dir → /dir/ when /dir/index.html exists
  *   3. Otherwise the first matching rule in public/_redirects. Netlify ignores a trailing slash when
  *      matching; supports :placeholder (one segment) and a trailing * (→ :splat)
- * Rules for other hosts (https://blog.koipun.com/…) are checked separately, as that host.
+ * Rules with a host (https://blog.koipun.com/…) match only that host; host-less rules match on every
+ * domain of the site, as on Netlify (domain aliases such as blog.koipun.com serve the same site).
  *
  * usage: node linkcheck.mjs <public> <urls.txt>          exits 1 if any URL fails
  *        VERBOSE=1 node linkcheck.mjs …                  prints every hop
@@ -42,7 +43,7 @@ function route(url, host = 'www.koipun.com', hops = []) {
   const path = u.pathname;
   const hit = serves(path);
   for (const r of rules) {
-    if ((r.host ?? 'www.koipun.com') !== u.host) continue;
+    if (r.host && r.host !== u.host) continue;        // host-less rules apply on every domain of the site
     if (hit && !r.force) continue;                    // shadowing: the file wins over unforced rules
     const m = r.re.exec(path);
     if (!m) continue;
