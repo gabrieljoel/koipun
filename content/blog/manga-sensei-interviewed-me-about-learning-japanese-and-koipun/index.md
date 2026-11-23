@@ -16,4 +16,5 @@ In the episode, we spoke about bars in Japan, English teaching in Japan as a JET
 
 During the first half of the interview we spoke in English and during the second half we spoke in Japanese. You can listen to the episode right below.
 
-<iframe allow="autoplay" height="166" loading="lazy" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/422869947&amp;color=%232f2f2f&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true" style="border:0;width:100%" title="Embedded audio" width="100%"></iframe>
+<!-- The original SoundCloud track (422869947) was deleted; the same episode lives on Spreaker. -->
+<iframe height="200" loading="lazy" src="https://widget.spreaker.com/player?episode_id=14430960&amp;theme=light&amp;playlist=false" style="border:0;width:100%" title="Manga Sensei podcast: Interview with Gabriel of Koipun" width="100%"></iframe>

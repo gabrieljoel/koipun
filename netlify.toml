@@ -16,7 +16,7 @@
 
 # ---------------------------------------------------------------- Security headers (every response)
 # The site ships no JavaScript, so the CSP allows none. Inline styles: the font @font-face block and
-# the brand-pattern background. Frames: YouTube (privacy-enhanced) and SoundCloud embeds in old posts.
+# the brand-pattern background. Frames: YouTube (privacy-enhanced) and Spreaker embeds in old posts.
 [[headers]]
   for = "/*"
   [headers.values]
@@ -31,7 +31,7 @@
       style-src 'self' 'unsafe-inline'; \
       font-src 'self'; \
       manifest-src 'self'; \
-      frame-src https://www.youtube-nocookie.com https://w.soundcloud.com; \
+      frame-src https://www.youtube-nocookie.com https://widget.spreaker.com; \
       base-uri 'none'; \
       form-action 'none'; \
       frame-ancestors 'none'; \

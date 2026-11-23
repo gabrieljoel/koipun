@@ -146,7 +146,7 @@ Rules of thumb: red-pen text uses `text-pen` (4.5:1 on every ground) and strokes
 - [x] Decide `ai-train=` in `layouts/robots.txt`: `yes`
 - [ ] Higher-res logo (the best surviving one is 232 px)
 - [ ] Verify in Search Console and submit the sitemap
-- [ ] The SoundCloud track embedded in the Manga Sensei interview no longer exists on SoundCloud (404): replace or remove it
+- [x] Manga Sensei interview: the deleted SoundCloud track is replaced by the same episode on Spreaker
 
 ## Contributing
 

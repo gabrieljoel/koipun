@@ -12,7 +12,7 @@ Koipun is a static website. It has no user accounts, does not set tracking cooki
 
 If you email us, your contact information is used only to reply to you and is never shared, unless required by law enforcement.
 
-Some posts embed videos or audio from YouTube or SoundCloud. Those embeds are loaded from their providers and are subject to their own privacy policies.
+Some posts embed videos or audio from YouTube or Spreaker. Those embeds are loaded from their providers and are subject to their own privacy policies.
 
 ## Terms
 
