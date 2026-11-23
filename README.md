@@ -110,7 +110,7 @@ Rules of thumb: red-pen text uses `text-pen` (4.5:1 on every ground) and strokes
 **Gates on every deploy:**
 1. Tailwind class order.
 2. A clean Hugo build.
-3. All 151 legacy URLs resolve under Netlify's routing rules (`scripts/migration/linkcheck.mjs`).
+3. All 154 legacy URLs resolve under Netlify's routing rules (`scripts/migration/linkcheck.mjs`).
 4. Production only: the SEO audit.
 
 **Contexts:**

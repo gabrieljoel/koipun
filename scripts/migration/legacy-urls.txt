@@ -1,5 +1,6 @@
 /
 /2016/08/01/a-visual-study-method-for-heisigs-remembering-the-kanji/
+/2016/08/01/a-visual-study-method-for-heisigs-remembering-the-kanji/feed/
 /about
 /about/
 /anki
@@ -110,6 +111,7 @@
 /blog/top-manga-for-learning-japanese/
 /blog/what-is-the-counter-word-for-kanji
 /blog/what-is-the-counter-word-for-kanji/
+/comments/feed/
 /favicon.ico
 /help
 /help.html
@@ -122,6 +124,7 @@
 /newsletter/
 /privacy-and-terms
 /privacy-and-terms/
+/privacy/
 /reader
 /reader.html
 /reader/
