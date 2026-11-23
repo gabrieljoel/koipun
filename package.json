@@ -7,7 +7,8 @@
     "build": "hugo --gc --minify --cleanDestinationDir",
     "preview": "hugo server --environment production --gc --minify",
     "format:classes": "node scripts/tailwind/sort-classes.mjs",
-    "check": "bash scripts/build.sh"
+    "check": "bash scripts/build.sh",
+    "indexnow": "node scripts/indexnow.mjs"
   },
   "engines": {
     "node": ">=22"

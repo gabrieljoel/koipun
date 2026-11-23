@@ -122,6 +122,8 @@ Rules of thumb: red-pen text uses `text-pen` (4.5:1 on every ground) and strokes
 - Hashed files (`/css/*`, `/fonts/*`, `*_hu_*` images) are immutable for a year. Everything else revalidates by ETag.
 - Markdown twins and `llms.txt` are `noindex`.
 
+**IndexNow (Bing, Yandex, Naver, Seznam, Yep; not Google):** after a deploy that adds or changes pages, run `npm run indexnow -- <url> …` for those pages, or `npm run indexnow` for every URL in the live sitemap. The public key lives in `static/<key>.txt`; the script refuses to ping until it's live.
+
 **Test locally like Netlify:** `npm run check && netlify dev --dir public --offline` serves the build with the real redirect and header engine.
 
 ### One-time setup
