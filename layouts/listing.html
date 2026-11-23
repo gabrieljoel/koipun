@@ -9,7 +9,7 @@
     <div class="mb-12 max-w-3xl">{{ with partial "components/prose.html" . }}{{ .Content }}{{ end }}</div>
   {{ end }}
   {{ with site.GetPage (printf "/categories/%s" .Params.listCategory) }}
-    {{ partial "components/post-grid.html" (dict "pages" .Pages.ByPublishDate.Reverse "eagerCount" 3) }}
+    {{ partial "components/post-grid.html" (dict "pages" .Pages.ByPublishDate.Reverse "eagerCount" 3 "heading" "h2") }}
   {{ end }}
 </div>
 {{ end }}

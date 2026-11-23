@@ -2,7 +2,7 @@
   Blog post card: a sheet of notebook paper. The whole card is one link (single tab stop);
   the category chip is a separate link above it.
   Rhythm: image → category → title → excerpt → footer pinned to the bottom.
-  Params: page, eager (bool, for the first row)
+  Params: page, eager (bool, for the first row), heading ("h2" on pages whose only heading is the h1; default "h3")
 */}}
 {{- $p := .page -}}
 <article class="group relative flex h-full lift flex-col overflow-hidden card">
@@ -17,9 +17,12 @@
     {{- range first 1 ($p.GetTerms "categories") }}
       <div>{{ partial "components/category-chip.html" (dict "term" .) }}</div>
     {{- end }}
-    <h3 class="font-sans text-xl/7 font-semibold text-pretty transition-colors group-hover:text-pen">
-      <a href="{{ $p.RelPermalink }}" class="after:absolute after:inset-0">{{ $p.LinkTitle }}</a>
-    </h3>
+    {{- $title := printf `<a href="%s" class="after:absolute after:inset-0">%s</a>` $p.RelPermalink (htmlEscape $p.LinkTitle) | safeHTML }}
+    {{- if eq .heading "h2" }}
+    <h2 class="font-sans text-xl/7 font-semibold text-pretty transition-colors group-hover:text-pen">{{ $title }}</h2>
+    {{- else }}
+    <h3 class="font-sans text-xl/7 font-semibold text-pretty transition-colors group-hover:text-pen">{{ $title }}</h3>
+    {{- end }}
     <p class="mb-3 line-clamp-3 text-muted">{{ $p.Description | default $p.Summary | plainify }}</p>
     <footer class="mt-auto flex items-center justify-between gap-3 border-t border-hairline pt-4 text-sm text-subtle">
       <span><time datetime="{{ $p.PublishDate.Format "2006-01-02" }}">{{ $p.PublishDate | time.Format ":date_medium" }}</time> · {{ $p.ReadingTime }} min</span>

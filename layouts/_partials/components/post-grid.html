@@ -1,8 +1,8 @@
 {{/*
-  Grid of post cards. Params: pages (collection), eagerCount (int, default 0)
+  Grid of post cards. Params: pages (collection), eagerCount (int, default 0), heading (passed to post-card)
 */}}
 <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
   {{- range $i, $p := .pages }}
-    {{ partial "components/post-card.html" (dict "page" $p "eager" (lt $i ($.eagerCount | default 0))) }}
+    {{ partial "components/post-card.html" (dict "page" $p "eager" (lt $i ($.eagerCount | default 0)) "heading" $.heading) }}
   {{- end }}
 </div>
