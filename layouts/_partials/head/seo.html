@@ -17,8 +17,10 @@
 
 <title>{{ $title }}</title>
 <meta name="description" content="{{ $description }}">
+{{- if ne .Kind "404" }}
 <link rel="canonical" href="{{ $canonical }}">
-{{- if or .Draft (not hugo.IsProduction) .Params.noindex }}
+{{- end }}
+{{- if or .Draft (not hugo.IsProduction) .Params.noindex (eq .Kind "404") }}
 <meta name="robots" content="noindex, nofollow">
 {{- else }}
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
