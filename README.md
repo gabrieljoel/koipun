@@ -72,7 +72,7 @@ interviewee: { name: Jane Doe, url: https://…, level: JLPT N2 }   # interviews
 
 Furigana: `{{< ruby "漢字" "かんじ" >}}` (whole word) or `{{< ruby "先生" "せん|せい" >}}` (per character). It outputs native `<ruby lang="ja">` with `<rp>` fallbacks. Tested in Chromium, Firefox and WebKit: readings sit above the base text, an annotated word never splits across lines, and copied text contains only the kanji.
 
-Images are resized to 480/768/1080/1536 px (never upscaled) and served as **AVIF → WebP**, with a single JPEG/PNG fallback for very old browsers. Animated GIFs become **animated WebP**, about ⅓ the size. `sizes` matches the rendered width (floats ≈ 308px), every image has intrinsic dimensions (no layout shift), the hero gets `fetchpriority="high"`, and the rest lazy-load. Hashed variants are cached as `immutable`. Measured image weight per page view is 80–95% lower than the old site (e.g. the blog index went from 1.9 MB to 102 KB).
+Images are resized to 480/768/1080/1536 px (never upscaled) and served as **AVIF → WebP**, with a single JPEG/PNG fallback for very old browsers. Animated GIFs become **animated WebP**, about ⅓ the size. `sizes` matches the rendered width (floats ≈ 460px), every image has intrinsic dimensions (no layout shift), the hero gets `fetchpriority="high"`, and the rest lazy-load. Hashed variants are cached as `immutable`. Measured image weight per page view is 80–95% lower than the old site (e.g. the blog index went from 1.9 MB to 102 KB).
 
 ## Design system: Genkō
 
@@ -97,7 +97,7 @@ Rules of thumb: red-pen text uses `text-pen` (4.5:1 on every ground) and strokes
 - JSON-LD `@graph`: Organization, WebSite, Person, the page node (BlogPosting / Blog / AboutPage / CollectionPage) and BreadcrumbList.
 - `sitemap.xml`, full-content RSS (site, blog, and each category/author), and `robots.txt` with a sitemap line and Content-Signal.
 - **For answer engines:** `/llms.txt` plus a clean Markdown twin of every page at `<url>index.md`, linked via `rel="alternate"`.
-- Performance: zero JS, self-hosted subset fonts (about 64 KB preloaded), AVIF images, one fingerprinted CSS file with SRI, and immutable caching for hashed assets.
+- Performance: zero JS, self-hosted subset fonts (about 50 KB preloaded), AVIF images, one fingerprinted CSS file with SRI, and immutable caching for hashed assets.
 
 ## Deploy (Netlify)
 
@@ -142,8 +142,8 @@ Rules of thumb: red-pen text uses `text-pen` (4.5:1 on every ground) and strokes
 
 - [x] Migrate posts and pages from `_archive/`
 - [x] Netlify one-time setup (above): site, domains incl. `blog.koipun.com`, DNS (live since 2026-11-23)
-- [ ] Set `enableGitInfo = true` now that content is committed (accurate `lastmod`)
-- [ ] Decide `ai-train=` in `layouts/robots.txt` (currently `yes`)
+- [x] Set `enableGitInfo = true` (migrated posts pin `lastmod` to their original date)
+- [x] Decide `ai-train=` in `layouts/robots.txt`: `yes`
 - [ ] Higher-res logo (the best surviving one is 232 px)
 - [ ] Verify in Search Console and submit the sitemap
 - [ ] The SoundCloud track embedded in the Manga Sensei interview no longer exists on SoundCloud (404): replace or remove it
