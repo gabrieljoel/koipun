@@ -113,7 +113,7 @@ Components never name a primitive. They name a **role**, and each theme decides 
 | `subtle` on `surface` | 5.7 | 8.7 | n/a |
 | `pen` on `surface` | 6.4 | 7.3 | 8.7 |
 | `pen` on `tint` | 6.1 | 5.8 | n/a |
-| `pen` on `raised` | 6.1 | 6.9 | n/a |
+| `pen` on `raised` | 6.4 | 6.9 | n/a |
 | `btn-fg` on `btn` | 5.0 | 5.0 | 6.5 |
 | `btn-fg` on `btn-hover` | 6.5 | 6.5 | n/a |
 | `pen-mark` on `surface` (strokes) | 4.9 | n/a | n/a |
