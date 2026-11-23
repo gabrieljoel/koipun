@@ -1,7 +1,7 @@
 ---
 title: "Manga Sensei interviewed me about learning Japanese and Koipun"
 seoTitle: "Manga Sensei Interviewed me about learning Japanese"
-description: "Learn about English teaching in Japan as a JET and language learning through classic RPG games."
+description: "Listen to my Manga Sensei podcast interview with John Dinkel, half in English, half in Japanese: Koipun, JET, bars in Japan, and learning with Final Fantasy VI."
 date: 2018-04-23T15:24:00+00:00
 lastmod: 2018-04-23T15:24:00+00:00
 authors: [gabriel-j-perez-irizarry]

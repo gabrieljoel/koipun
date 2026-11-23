@@ -1,4 +1,4 @@
 ---
 title: Japanese Learning Blog
-description: Interviews with successful Japanese learners, study methods, and the Koipun story.
+description: "The Koipun blog archive, 2015 to 2019: How I Learned Japanese interviews with successful learners, study methods like Anki and Heisig, and the founder's story."
 ---

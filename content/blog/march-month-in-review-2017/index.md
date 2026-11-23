@@ -1,6 +1,6 @@
 ---
 title: "March Month in Review"
-description: "3,732 page views and $54 dollars in revenue"
+description: "March 2017 review: 3,732 page views after launching the How I Learned Japanese interviews on Reddit, $54 in revenue, a $1000 MRR goal and MeCab text processing."
 date: 2017-04-07T17:52:00+00:00
 lastmod: 2017-04-07T17:52:00+00:00
 authors: [gabriel-j-perez-irizarry]

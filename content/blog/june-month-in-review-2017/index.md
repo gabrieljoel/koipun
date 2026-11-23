@@ -1,6 +1,6 @@
 ---
 title: "June Month in Review"
-description: "4,675 page views and $18.00 dollars in revenue"
+description: "June 2017 review: 4,675 page views, $18 in Anki sales, a Hacker News front-page interview, two commissioned articles, and Koipun Reader launching next month."
 date: 2017-07-08T10:55:00+00:00
 lastmod: 2017-07-08T10:55:00+00:00
 authors: [gabriel-j-perez-irizarry]

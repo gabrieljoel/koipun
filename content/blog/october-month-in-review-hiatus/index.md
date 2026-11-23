@@ -1,6 +1,6 @@
 ---
 title: "October Month in Review - Hiatus"
-description: "On the future of Koipun and why I will shift my focus to other projects."
+description: "October 2017: why I put Koipun on hiatus after Koipun Reader did not get the interest I hoped for, what keeps running, and an update that the hiatus was short."
 date: 2017-11-11T00:00:00+00:00
 lastmod: 2017-11-11T00:00:00+00:00
 authors: [gabriel-j-perez-irizarry]

@@ -1,6 +1,6 @@
 ---
 title: About
-description: Koipun is built by Gabriel J. Pérez Irizarry, a lifelong Japanese learner, to help others learn how to learn Japanese.
+description: "Meet Gabriel J. Pérez Irizarry, who started Koipun in Atlanta after falling for Japanese classes at Georgia Tech. He lives in Barcelona and passed the JLPT N2."
 image: gabriel.jpg
 imageAlt: "Gabriel J. Pérez Irizarry in a yukata in a Japanese garden"
 ogImage: social.jpg   # landscape crop for the social card

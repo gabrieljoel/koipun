@@ -1,6 +1,6 @@
 ---
 title: Privacy Policy and Terms of Service
-description: Koipun's privacy policy and terms of service.
+description: "Koipun privacy policy and terms of service: a static site with no user accounts, no tracking cookies and no third-party analytics. Email is used only to reply."
 lastmod: 2026-11-23
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "What is the counter word for kanji?"
-description: "How can you count kanji in Japanese? The answer is simple enough."
+description: "What is the Japanese counter word for kanji? My teacher's answer: count them with 一文字, 二文字 (hitomoji, futamoji) or 一字, 二字 (ichiji, niji). Plus a trick question."
 date: 2017-01-25T00:00:00+00:00
 lastmod: 2017-01-25T00:00:00+00:00
 authors: [gabriel-j-perez-irizarry]

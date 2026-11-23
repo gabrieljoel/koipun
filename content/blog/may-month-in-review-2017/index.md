@@ -1,6 +1,6 @@
 ---
 title: "May Month in Review"
-description: "3,859 page views and $54.00 dollars in revenue"
+description: "May 2017 review: 3,859 page views, my best month so far, from interviews shared on Hacker News and Reddit, plus $54 in revenue and a new Koipun Reader preview."
 date: 2017-06-15T03:06:00+00:00
 lastmod: 2017-06-15T03:06:00+00:00
 authors: [gabriel-j-perez-irizarry]

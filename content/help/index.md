@@ -1,6 +1,6 @@
 ---
 title: Help
-description: Need help or have feedback about Koipun? Email Gabriel directly — every message gets a personal reply.
+description: "Need help with Koipun, or not satisfied with it? Email Gabriel directly. He replies personally to every message and does everything he can to make it right."
 ---
 
 ![Gabriel J. Pérez Irizarry smiling on the vine bridge in Miyoshi, Japan](gabriel.jpg)

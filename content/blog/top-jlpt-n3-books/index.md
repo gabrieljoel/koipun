@@ -1,6 +1,6 @@
 ---
 title: "Top five JLPT N3 Books"
-description: "We want you to succeed, so we’ve put together a list of JLPT N3 of the best books to prepare to pass the JLPT N3."
+description: "The top five JLPT N3 books: Tobira and Integrated Approach to Intermediate Japanese for a full course, then TRY! N3, Nihongo Sō-Matome and Shin Kanzen Master."
 date: 2018-07-17T19:53:00+00:00
 lastmod: 2018-07-17T19:53:00+00:00
 authors: [gabriel-j-perez-irizarry]

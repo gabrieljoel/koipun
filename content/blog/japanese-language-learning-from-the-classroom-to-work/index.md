@@ -1,7 +1,7 @@
 ---
 title: "Japanese Language Learning from the Classroom to the Workplace and Beyond"
 seoTitle: "Japanese Learning from the Classroom to Work"
-description: "Jenny majored in Japanese and shares how she developed a career where she can use Japanese for work."
+description: "Interview with Jenny Ravi (JLPT N2): from majoring in Japanese to a career using it at work, and how anime, her YouTube channel and Flipboard keep her studying."
 date: 2017-04-21T00:00:00+00:00
 lastmod: 2017-04-21T00:00:00+00:00
 authors: [gabriel-j-perez-irizarry]

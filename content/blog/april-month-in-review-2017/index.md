@@ -1,6 +1,6 @@
 ---
 title: "April Month in Review"
-description: "985 page views and $126 dollars in revenue"
+description: "April 2017 review: 985 page views, $126 in Anki deck sales, four new interviews, two from people who asked to take part, and progress on a Japanese text API."
 date: 2017-05-11T05:03:00+00:00
 lastmod: 2017-05-11T05:03:00+00:00
 authors: [gabriel-j-perez-irizarry]

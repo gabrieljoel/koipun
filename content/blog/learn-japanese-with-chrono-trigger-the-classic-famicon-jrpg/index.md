@@ -1,7 +1,7 @@
 ---
 title: "Learn Japanese with Chrono Trigger, the timeless classic Super Famicon JRPG. Yes, I'm back."
 seoTitle: "Learn Japanese with what some consider one of the best games ever"
-description: "Find one out one way to learn Japanese while playing what is widely considered one of the best video games of all time."
+description: "Back from hiatus in 2018: my plan for a step-by-step guide to playing the Japanese version of Chrono Trigger, the classic Super Famicom JRPG, to learn Japanese."
 date: 2018-03-14T02:28:00+00:00
 lastmod: 2018-03-14T02:28:00+00:00
 authors: [gabriel-j-perez-irizarry]

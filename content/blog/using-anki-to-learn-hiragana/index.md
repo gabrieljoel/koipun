@@ -1,6 +1,6 @@
 ---
 title: "Using Anki to learn Hiragana"
-description: "How to use Anki and spaced repetition to learn hiragana — setup steps and tips for building a daily review habit."
+description: "Learn hiragana with Anki: step-by-step setup with the companion deck to the Japanese Ammo hiragana guide, plus tips on a moderate pace and short daily reviews."
 date: 2015-02-07
 lastmod: 2015-02-07
 authors: [gabriel-j-perez-irizarry]

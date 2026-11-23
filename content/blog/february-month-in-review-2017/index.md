@@ -1,6 +1,6 @@
 ---
 title: "February Month in Review"
-description: "1,069 page views and $108 US dollars in revenue"
+description: "February 2017 review: 1,069 page views, $108 in Anki deck sales, the Genki II Anki deck shipped, a failed Valentine's giveaway and three new interviews."
 date: 2017-03-06T00:00:00+00:00
 lastmod: 2017-03-06T00:00:00+00:00
 authors: [gabriel-j-perez-irizarry]

@@ -1,7 +1,7 @@
 ---
 title: "August Month in Review - Koipun Reader Feedback Edition"
 seoTitle: "Koipun Reader Feedback"
-description: "2,575 page views and $75.00 dollars in revenue"
+description: "August 2017 review: 2,575 page views, the first signs of organic traffic growth, Koipun Reader user feedback and text resizing, and a failed Twitter experiment."
 date: 2017-09-22T01:20:00+00:00
 lastmod: 2017-09-22T01:20:00+00:00
 authors: [gabriel-j-perez-irizarry]
