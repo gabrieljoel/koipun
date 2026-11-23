@@ -24,6 +24,7 @@
     <div class="rounded-md bg-surface py-2 sm:-mx-6 sm:px-6">
       {{ with partial "components/prose.html" . }}{{ .Content }}{{ end }}
     </div>
+    {{ partial "components/series-box.html" . }}
     {{ partial "components/author-box.html" . }}
     {{ with hugo.Data.ask_ai.post }}
       {{ partial "components/ask-ai.html" (dict "label" .label "question" (printf .question $.Permalink) "class" "mt-8") }}

@@ -1,0 +1,17 @@
+{{/*
+  "Part of a series" box under a post whose category has a hub page (the term's `canonical`),
+  e.g. every interview → /how-to-learn-japanese/. Strengthens internal links to the hub.
+  Params: page
+*/}}
+{{- with index (.GetTerms "categories") 0 -}}
+{{- with .Params.canonical -}}
+{{- $hub := site.GetPage . -}}
+{{- $term := index ($.GetTerms "categories") 0 -}}
+<aside class="mt-12 card p-6" aria-labelledby="series">
+  <p class="chip-hand -rotate-2">series</p>
+  <h2 id="series" class="mt-3 text-2xl font-black tracking-tight">{{ $term.LinkTitle }}</h2>
+  <p class="mt-2 text-muted">This interview is one of {{ len $term.Pages }} with learners and teachers about the methods that worked for them.</p>
+  <p class="mt-4"><a href="{{ with $hub }}{{ .RelPermalink }}{{ else }}{{ relURL . }}{{ end }}" class="link-pen font-semibold">{{ with $hub }}{{ or .Params.seoTitle .Title }}{{ else }}All interviews{{ end }} &rarr;</a></p>
+</aside>
+{{- end -}}
+{{- end -}}

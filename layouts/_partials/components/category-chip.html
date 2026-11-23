@@ -1,7 +1,8 @@
 {{/*
   Handwritten red-pen category label. Params: term (taxonomy term page), class (extra classes)
   Lowercased like a margin note; the real name stays the accessible link text via title.
+  Links to the term's `canonical` (e.g. the interview series → /how-to-learn-japanese/) when it has one.
 */}}
 {{- with .term -}}
-<a href="{{ .RelPermalink }}" title="{{ .LinkTitle }}" class="chip-hand relative z-10 -rotate-2 motion-safe:transition-transform motion-safe:hover:rotate-0 {{ $.class }}">{{ .Params.short | default .LinkTitle | lower }}</a>
+<a href="{{ with .Params.canonical }}{{ relURL . }}{{ else }}{{ .RelPermalink }}{{ end }}" title="{{ .LinkTitle }}" class="chip-hand relative z-10 -rotate-2 motion-safe:transition-transform motion-safe:hover:rotate-0 {{ $.class }}">{{ .Params.short | default .LinkTitle | lower }}</a>
 {{- end -}}
