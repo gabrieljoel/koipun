@@ -10,8 +10,8 @@ image: genki-grammar-anki-card.png
 imageAlt: An Anki card from the GENKI grammar deck — a cloze sentence with a photo of a puppy in a cup
 blocks:
   - type: header
-    heading: Problems remembering Japanese grammar?
-    subheading: Get help with learning the GENKI grammar
+    heading: Free GENKI grammar Anki decks
+    subheading: Problems remembering Japanese grammar? Flashcards with native-speaker audio for GENKI I and II
   - body: |
       Hand-made, turbo-charged flashcards for [GENKI](https://genki3.japantimes.co.jp/en/), the critically acclaimed Japanese textbook.
 
@@ -34,11 +34,38 @@ blocks:
       - [Cure Dolly](/blog/how-i-learned-japanese-cure-dolly-from-kawajapa/)
       - [Alan Clontz](/blog/how-did-you-learn-japanese-alan/)
       - [Yours truly](/about/)
-  - type: statement
-    body: Download [Anki](https://apps.ankiweb.net/) and our Anki flashcard decks for [Genki I](https://ankiweb.net/shared/info/1616679068) and [Genki II](https://ankiweb.net/shared/info/1833515795).
-    ctas:
-      - { href: "https://ankiweb.net/shared/info/1616679068", text: GENKI I deck }
-      - { href: "https://ankiweb.net/shared/info/1833515795", text: GENKI II deck, variant: secondary }
+  # Deck facts are copied from each deck's AnkiWeb page (checked 2026-11-23). Re-check there when a deck changes.
+  - type: decks
+    id: decks
+    eyebrow: free download
+    heading: Two decks, one for each book
+    decks:
+      - { name: GENKI I, url: "https://ankiweb.net/shared/info/1616679068", notes: 342, audio: 341, images: 342, size: 104.4 MB, updated: 2020-07-12, primary: true }
+      - { name: GENKI II, url: "https://ankiweb.net/shared/info/1833515795", notes: 315, audio: 314, images: 312, size: 86.9 MB, updated: 2020-07-12 }
+  - type: steps
+    id: import
+    eyebrow: 3 minutes
+    heading: How to import the decks into Anki
+    steps:
+      - Install [Anki](https://apps.ankiweb.net/), the free flashcard app for Windows, Mac and Linux.
+      - Open the [GENKI I](https://ankiweb.net/shared/info/1616679068) or [GENKI II](https://ankiweb.net/shared/info/1833515795) deck on AnkiWeb and click **Download**. You get an `.apkg` file.
+      - Double-click the file to open it in Anki, or use **File → Import** inside Anki.
+      - Click the deck and press **Study Now**. Anki schedules each card's next review for you, so a few minutes a day is enough.
+    note: "Studying on your phone? After importing, sync with a free AnkiWeb account and the decks appear in AnkiDroid (Android) or AnkiMobile (iPhone and iPad)."
+  - type: faq
+    id: faq
+    heading: Questions
+    items:
+      - q: Is there a free GENKI grammar Anki deck with audio?
+        a: "Yes, these two. They cover the grammar of GENKI I and GENKI II and are free on AnkiWeb. Every practice sentence was written by a native Japanese speaker and recorded by a native speaker: 341 audio clips in the GENKI I deck and 314 in the GENKI II deck, plus an image on almost every card."
+      - q: What does a card look like?
+        a: "Each card is a cloze: a Japanese sentence with the grammar form blanked out, the dictionary form as a hint, and an image. For example, 週末は、パスタを[…]に行く。 asks for 食べ, to complete the translation “(I) am going to eat pasta on the weekend.” Kanji come with furigana."
+      - q: Can I study one chapter at a time?
+        a: "Yes. Every card is tagged with its GENKI chapter and grammar point (for example `Genki-chapter15-grammar-point-1`), so you can make a filtered deck for the chapter you're on."
+      - q: Do the decks only use words from the textbook?
+        a: No. They include some vocabulary and grammar that isn't in GENKI, so you'll meet a few new words along the way.
+      - q: Found a mistake in a card?
+        a: "Please tell me. Email me from the [help page](/help/) and I'll fix the deck."
   - heading: About me
     body: |
       I'm Gabriel, a Computer Science graduate who has been learning Japanese for years and builds Koipun from a learner's perspective.

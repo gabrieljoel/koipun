@@ -76,6 +76,24 @@
   {{- $node = merge $node (dict "@type" "Blog" "publisher" (dict "@id" $orgID)) -}}
 {{- else if $p.IsHome -}}
   {{- $node = merge $node (dict "@type" "WebPage" "about" (dict "@id" $orgID)) -}}
+{{- else if $p.Params.blocks -}}
+  {{- /* Landing page; deck blocks become free LearningResources (e.g. /anki/) */ -}}
+  {{- $res := slice -}}
+  {{- range $p.Params.blocks -}}{{- if eq .type "decks" -}}{{- range .decks -}}
+    {{- $res = $res | append (dict
+      "@type" "LearningResource"
+      "name" (printf "%s Grammar Anki Deck" .name)
+      "url" .url
+      "learningResourceType" "Flashcards"
+      "isAccessibleForFree" true
+      "inLanguage" (slice "ja" "en")
+      "teaches" (printf "Japanese grammar from the %s textbook" .name)
+      "dateModified" .updated
+      "author" (dict "@id" $authorID)
+    ) -}}
+  {{- end -}}{{- end -}}{{- end -}}
+  {{- $node = merge $node (dict "@type" "WebPage") -}}
+  {{- with $res }}{{ $node = merge $node (dict "mainEntity" (dict "@type" "ItemList" "itemListElement" .)) }}{{ end -}}
 {{- else if eq $p.Layout "listing" -}}
   {{- /* Curated hub (e.g. /how-to-learn-japanese/): a CollectionPage listing its posts */ -}}
   {{- $items := slice -}}

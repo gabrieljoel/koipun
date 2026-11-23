@@ -1,0 +1,26 @@
+{{/*
+  Download cards for shared Anki decks (e.g. /anki/). Facts come from front matter, copied from
+  each deck's AnkiWeb page; re-check them there when a deck changes.
+  Params: heading, eyebrow, id, decks: [{name, url, notes, audio, images, size, updated (YYYY-MM-DD), primary (bool)}]
+*/}}
+<section {{ with .id }}id="{{ . }}" {{ end }}class="container-page scroll-mt-24 py-12 sm:py-16">
+  {{ with .eyebrow }}<p class="mb-2 text-center font-hand text-2xl font-semibold text-pen">{{ . }}</p>{{ end }}
+  {{ with .heading }}<h2 class="mb-10 text-center text-3xl font-black tracking-tight sm:text-4xl">{{ . }}</h2>{{ end }}
+  <ul class="mx-auto grid max-w-4xl gap-6 sm:grid-cols-2">
+    {{- range .decks }}
+    <li class="flex flex-col card p-6 shadow-paper">
+      <h3 class="text-2xl font-black tracking-tight">{{ .name }}</h3>
+      <dl class="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+        <div><dt class="text-subtle">Cards</dt><dd class="text-lg font-semibold text-fg">{{ .notes }}</dd></div>
+        <div><dt class="text-subtle">Audio clips</dt><dd class="text-lg font-semibold text-fg">{{ .audio }}</dd></div>
+        <div><dt class="text-subtle">Images</dt><dd class="text-lg font-semibold text-fg">{{ .images }}</dd></div>
+        <div><dt class="text-subtle">Download</dt><dd class="text-lg font-semibold text-fg">{{ .size }}</dd></div>
+      </dl>
+      <p class="mt-4 text-sm text-subtle">Free on AnkiWeb · updated <time datetime="{{ .updated }}">{{ time.Format ":date_long" (time.AsTime .updated) }}</time></p>
+      <div class="mt-6 flex flex-1 items-end">
+        {{ partial "components/button.html" (dict "href" .url "text" (printf "Get the %s deck" .name) "variant" (cond (.primary | default false) "primary" "secondary")) }}
+      </div>
+    </li>
+    {{- end }}
+  </ul>
+</section>

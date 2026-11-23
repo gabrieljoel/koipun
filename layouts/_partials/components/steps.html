@@ -1,0 +1,18 @@
+{{/*
+  Numbered how-to steps with a handwritten step number. Params: heading, eyebrow, id, steps (markdown strings), note (markdown, optional)
+*/}}
+<section {{ with .id }}id="{{ . }}" {{ end }}class="container-page scroll-mt-24 py-12 sm:py-16">
+  <div class="mx-auto max-w-3xl">
+    {{ with .eyebrow }}<p class="mb-2 font-hand text-2xl font-semibold text-pen">{{ . }}</p>{{ end }}
+    {{ with .heading }}<h2 class="mb-8 text-3xl font-black tracking-tight sm:text-4xl">{{ . }}</h2>{{ end }}
+    <ol class="space-y-5">
+      {{- range $i, $s := .steps }}
+      <li class="flex gap-4">
+        <span class="flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-pen-mark font-hand text-2xl font-semibold text-pen" aria-hidden="true">{{ add $i 1 }}</span>
+        <div class="pt-1.5 text-lg/8 text-pretty text-muted [&_a]:link-pen [&_strong]:text-fg">{{ $s | markdownify }}</div>
+      </li>
+      {{- end }}
+    </ol>
+    {{ with .note }}<p class="mt-8 text-pretty text-subtle [&_a]:link-pen">{{ . | markdownify }}</p>{{ end }}
+  </div>
+</section>

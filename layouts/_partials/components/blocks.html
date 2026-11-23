@@ -3,6 +3,9 @@
   Context: page. Each block has a `type`:
     header     → centered page title block   (heading, subheading)
     statement  → big centered line of text    (body, ctas, id)
+    decks      → Anki deck download cards      (see deck-cards.html)
+    steps      → numbered how-to steps          (see steps.html)
+    faq        → questions and answers          (see faq.html)
     split      → text + image, two columns     (see split-section.html) — the default
 */}}
 {{- range .Params.blocks -}}
@@ -21,6 +24,12 @@
     </header>
   {{- else if eq $type "statement" -}}
     {{ partial "components/statement.html" $b }}
+  {{- else if eq $type "decks" -}}
+    {{ partial "components/deck-cards.html" $b }}
+  {{- else if eq $type "steps" -}}
+    {{ partial "components/steps.html" $b }}
+  {{- else if eq $type "faq" -}}
+    {{ partial "components/faq.html" $b }}
   {{- else -}}
     {{ partial "components/split-section.html" $b }}
   {{- end -}}
