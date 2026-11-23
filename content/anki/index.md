@@ -44,13 +44,13 @@ blocks:
       - { name: GENKI II, url: "https://ankiweb.net/shared/info/1833515795", notes: 315, audio: 314, images: 312, size: 86.9 MB, updated: 2020-07-12 }
   - type: steps
     id: import
-    eyebrow: 3 minutes
+    eyebrow: step by step
     heading: How to import the decks into Anki
     steps:
       - Install [Anki](https://apps.ankiweb.net/), the free flashcard app for Windows, Mac and Linux.
       - Open the [GENKI I](https://ankiweb.net/shared/info/1616679068) or [GENKI II](https://ankiweb.net/shared/info/1833515795) deck on AnkiWeb and click **Download**. You get an `.apkg` file.
       - Double-click the file to open it in Anki, or use **File → Import** inside Anki.
-      - Click the deck and press **Study Now**. Anki schedules each card's next review for you, so a few minutes a day is enough.
+      - Click the deck and press **Study Now**. Anki schedules each card's next review for you.
     note: "Studying on your phone? After importing, sync with a free AnkiWeb account and the decks appear in AnkiDroid (Android) or AnkiMobile (iPhone and iPad)."
   - type: faq
     id: faq
