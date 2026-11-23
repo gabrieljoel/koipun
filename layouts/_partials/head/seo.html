@@ -22,6 +22,8 @@
 {{- end }}
 {{- if or .Draft (not hugo.IsProduction) .Params.noindex (eq .Kind "404") }}
 <meta name="robots" content="noindex, nofollow">
+{{- else if partial "func/thin.html" . }}
+<meta name="robots" content="noindex, follow">
 {{- else }}
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 {{- end }}

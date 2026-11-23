@@ -1,0 +1,6 @@
+{{- /*
+  Thin listing pages: crawlable (links followed) but kept out of the index and the sitemap.
+  The taxonomy index pages (/blog/tag/, /blog/category/, /blog/author/) and tag terms (1–2 posts each).
+  Returns: bool
+*/ -}}
+{{- return (or (eq .Kind "taxonomy") (and (eq .Kind "term") (eq .Data.Plural "tags"))) -}}
