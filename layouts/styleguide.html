@@ -1,6 +1,7 @@
 {{/*
   Living style guide (/styleguide/, noindex). Colors are parsed straight from
-  assets/css/main.css, so this page can't drift from the real tokens.
+  assets/css/main.css, so this page can't drift from the real tokens. Swatches use the parsed
+  hex, not var(--color-…): Tailwind drops theme variables no utility uses.
   The written guide is BRAND.md.
 */}}
 {{ define "main" }}
@@ -23,7 +24,7 @@
         {{- range $swatches }}
           {{- $step := index . 1 }}{{ $hex := index . 2 }}{{ $note := index . 3 }}
           <li class="flex flex-col gap-2">
-            <span class="block h-16 rounded-md border-2 border-line" style="background: var(--color-{{ $scale }}-{{ $step }})"></span>
+            <span class="block h-16 rounded-md border-2 border-line" style="background: {{ $hex | safeCSS }}"></span>
             <span class="text-sm/snug"><b class="text-fg">{{ $scale }}-{{ $step }}</b><br><code class="text-subtle">{{ upper $hex }}</code>{{ with $note }}<br><span class="text-subtle">{{ . }}</span>{{ end }}</span>
           </li>
         {{- end }}
