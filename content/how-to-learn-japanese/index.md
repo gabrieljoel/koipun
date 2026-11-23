@@ -5,4 +5,5 @@ description: Learn how to learn Japanese from those who came before you. Intervi
 eyebrow: How I Learned Japanese — an interview series
 layout: listing
 listCategory: how-i-learned-japanese-an-interview-series   # category term key
+groupBy: level   # sections by interviewee.level (front matter)
 ---

@@ -1,6 +1,8 @@
 {{/*
   Curated hub page: intro + a grid of posts.
-  Front matter: layout: listing, and listCategory or listPages (see func/listing-pages.html)
+  Front matter: layout: listing, and listCategory or listPages (see func/listing-pages.html).
+  groupBy: level → sections by interviewee.level (JLPT N1 … N5, then other levels, then "not given"),
+  with a jump list. Labels are the front-matter values as written; nothing is inferred.
 */}}
 {{ define "main" }}
 <div class="container-page py-16">
@@ -8,6 +10,36 @@
   {{ if .Content }}
     <div class="mb-12 max-w-3xl">{{ with partial "components/prose.html" . }}{{ .Content }}{{ end }}</div>
   {{ end }}
-  {{ partial "components/post-grid.html" (dict "pages" (partial "func/listing-pages.html" .) "eagerCount" 3 "heading" "h2") }}
+  {{ $pages := partial "func/listing-pages.html" . }}
+  {{ if eq .Params.groupBy "level" }}
+    {{- $levels := slice -}}
+    {{- range $pages }}{{ with .Params.interviewee }}{{ with .level }}{{ if not (in $levels .) }}{{ $levels = $levels | append . }}{{ end }}{{ end }}{{ end }}{{ end -}}
+    {{- $jlpt := slice }}{{ range slice "N1" "N2" "N3" "N4" "N5" }}{{ $l := printf "JLPT %s" . }}{{ if in $levels $l }}{{ $jlpt = $jlpt | append $l }}{{ end }}{{ end -}}
+    {{- $other := slice }}{{ range sort $levels }}{{ if not (in $jlpt .) }}{{ $other = $other | append . }}{{ end }}{{ end -}}
+    {{- $groups := slice -}}
+    {{- range $jlpt | append $other -}}
+      {{- $l := . -}}
+      {{- $in := slice }}{{ range $pages }}{{ if eq (.Params.interviewee.level | default "") $l }}{{ $in = $in | append . }}{{ end }}{{ end -}}
+      {{- $groups = $groups | append (dict "label" $l "id" (urlize $l) "pages" $in) -}}
+    {{- end -}}
+    {{- $none := slice }}{{ range $pages }}{{ if not .Params.interviewee.level }}{{ $none = $none | append . }}{{ end }}{{ end -}}
+    {{- with $none }}{{ $groups = $groups | append (dict "label" "Level not given" "id" "level-not-given" "pages" .) }}{{ end -}}
+    <nav aria-label="Interviews by level" class="mb-12">
+      <p class="mb-3 font-hand text-2xl font-semibold text-pen">jump to a level</p>
+      <ul class="flex flex-wrap gap-3">
+        {{- range $groups }}
+        <li><a href="#{{ .id }}" class="inline-flex min-h-11 lift items-center gap-2 card px-4 font-semibold text-fg">{{ .label }} <span class="text-sm font-normal text-subtle">{{ len .pages }}</span></a></li>
+        {{- end }}
+      </ul>
+    </nav>
+    {{- range $i, $g := $groups }}
+    <section class="scroll-mt-24 {{ if $i }}mt-16{{ end }}" aria-labelledby="{{ $g.id }}">
+      <h2 id="{{ $g.id }}" class="mb-8 text-3xl font-black tracking-tight">{{ $g.label }} <span class="text-xl font-semibold text-subtle">· {{ len $g.pages }} {{ cond (eq (len $g.pages) 1) "interview" "interviews" }}</span></h2>
+      {{ partial "components/post-grid.html" (dict "pages" $g.pages "eagerCount" (cond (eq $i 0) 3 0)) }}
+    </section>
+    {{- end }}
+  {{ else }}
+    {{ partial "components/post-grid.html" (dict "pages" $pages "eagerCount" 3 "heading" "h2") }}
+  {{ end }}
 </div>
 {{ end }}
