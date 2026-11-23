@@ -2,19 +2,25 @@
 
 > {{ site.Params.description }}
 
-Every page is also available as clean Markdown by appending `index.md` to its URL (e.g. {{ site.Home.Permalink }}about/index.md).
+Koipun is an archive (2015–2019) of interviews with people who learned Japanese, study methods, and free Anki decks for the GENKI textbook. It is written by {{ site.Params.author.name }}. Every page is also available as clean Markdown by appending `index.md` to its URL (e.g. {{ site.Home.Permalink }}about/index.md).
 
 {{- define "llms-link" }}
-- [{{ .Title }}]({{ with .OutputFormats.Get "markdown" }}{{ .Permalink }}{{ else }}{{ .Permalink }}{{ end }}){{ with .Description }}: {{ . | plainify }}{{ end }}
+- [{{ .Title }}]({{ with .OutputFormats.Get "markdown" }}{{ .Permalink }}{{ else }}{{ .Permalink }}{{ end }}){{ with .Params.interviewee }} (interview with {{ .name }}{{ with .level }}, {{ . }}{{ end }}){{ end }}{{ with .Description }}: {{ . | plainify }}{{ end }}
 {{- end }}
 
-## Pages
-{{ range where site.RegularPages "Section" "" }}{{ template "llms-link" . }}{{ end }}
+## Start here
+{{ range slice "/how-to-learn-japanese" "/anki" "/about" }}{{ with site.GetPage . }}{{ template "llms-link" . }}{{ end }}{{ end }}
 
-{{ range site.Sections }}
+{{- /* Categories in reading order; any new category is appended after these */ -}}
+{{- $order := slice "how-i-learned-japanese-an-interview-series" "my-japanese-journey" "follow-the-koipun-story" -}}
+{{- range site.Taxonomies.categories }}{{ if not (in $order .Page.Data.Term) }}{{ $order = $order | append .Page.Data.Term }}{{ end }}{{ end }}
+{{ range $order }}{{ with site.GetPage (printf "/categories/%s" .) }}
 ## {{ .Title }}
-{{ range .RegularPagesRecursive.ByPublishDate.Reverse }}{{ template "llms-link" . }}{{ end }}
-{{ end }}
+{{ with .Description }}{{ . | plainify }}
+{{ end }}{{ range .Pages.ByPublishDate.Reverse }}{{ template "llms-link" . }}{{ end }}
+{{ end }}{{ end }}
+## Other pages
+{{ range slice "/help" "/privacy-and-terms" }}{{ with site.GetPage . }}{{ template "llms-link" . }}{{ end }}{{ end }}
 
 ## Optional
 - [Sitemap]({{ "sitemap.xml" | absURL }})

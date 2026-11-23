@@ -3,6 +3,8 @@
   Bundle images are rewritten to absolute URLs of a web-sized copy.
 */ -}}
 {{- $md := .RenderShortcodes | string -}}
+{{- /* Drop Goldmark attribute lines ({.float-right}, {#id}); they mean nothing outside the HTML */ -}}
+{{- $md = replaceRE `(?m)^\{[.#][^}\n]*\}[ \t]*\n?` "" $md -}}
 {{- range .Resources.ByType "image" -}}
   {{- $r := . -}}
   {{- if and (reflect.IsImageResourceProcessable .) (ne .MediaType.SubType "gif") (gt .Width 1280) }}{{ $r = .Resize "1280x" }}{{ end -}}
