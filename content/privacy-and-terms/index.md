@@ -20,4 +20,4 @@ By accessing this website, you agree to be bound by these Terms and Conditions o
 
 Koipun may revise these terms at any time without notice.
 
-Any claim relating to Koipun's website shall be governed by the laws of the State of Georgia without regard to its conflict of law provisions.
+Any claim relating to Koipun's website shall be governed by the laws of Spain, without regard to its conflict of law provisions, and subject to the jurisdiction of the courts of Barcelona.
