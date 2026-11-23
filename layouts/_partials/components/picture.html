@@ -1,0 +1,52 @@
+{{/*
+  Responsive <picture>: AVIF + WebP srcsets, one legacy fallback, intrinsic size (no CLS).
+  The single image component for the whole site: Markdown images, cards, avatars.
+
+  Params:
+    image    resource.Resource  (required)
+    alt      string             ("" = decorative)
+    sizes    string             default "(min-width: 768px) 768px, 100vw" — keep it truthful, it drives bandwidth
+    ratio    string             optional crop, e.g. "16x9" → fill (one crop, resized to every width)
+    anchor   string             crop anchor for ratio: Smart (default), Center, Top, Left, …
+    widths   slice of int       default [480 768 1080 1536]
+    class    string             classes for <img>
+    eager    bool               true for the above-the-fold / LCP image
+
+  Formats:
+    still images  → AVIF (smallest) → WebP → single JPEG/PNG fallback (pre-2020 browsers only)
+    animated GIF  → animated WebP (~⅓ the bytes) → original GIF fallback
+    SVG           → served as-is
+*/}}
+{{- $img := .image -}}
+{{- $sizes := .sizes | default "(min-width: 768px) 768px, 100vw" -}}
+{{- $widths := .widths | default (slice 480 768 1080 1536) -}}
+{{- $eager := .eager | default false -}}
+{{- $attrs := printf `alt="%s" loading="%s" decoding="async"%s%s`
+  (.alt | default "" | htmlEscape)
+  (cond $eager "eager" "lazy")
+  (cond $eager ` fetchpriority="high"` "")
+  (cond (isset . "class") (printf ` class="%s"` .class) "")
+-}}
+
+{{- if not $img -}}
+{{- else if not (reflect.IsImageResourceProcessable $img) -}}
+  <img src="{{ $img.RelPermalink }}" {{ $attrs | safeHTMLAttr }}>
+{{- else if eq $img.MediaType.SubType "gif" -}}
+  {{- $webp := $img.Process (printf "resize %dx webp" (cond (gt $img.Width 1080) 1080 $img.Width)) -}}
+  <picture class="contents">
+    <source type="image/webp" srcset="{{ $webp.RelPermalink }}">
+    <img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" {{ $attrs | safeHTMLAttr }}>
+  </picture>
+{{- else -}}
+  {{- $opts := dict "image" $img "widths" $widths "ratio" .ratio "anchor" .anchor -}}
+  {{- $fallbackFmt := cond (eq $img.MediaType.SubType "png") "png" "jpg" -}}
+  {{- /* legacy fallback: one mid-size file (≤1080px) */ -}}
+  {{- $fbWidths := slice }}{{ range $widths }}{{ if le . 1080 }}{{ $fbWidths = $fbWidths | append . }}{{ end }}{{ end -}}
+  {{- $fb := partial "func/srcset.html" (merge $opts (dict "format" $fallbackFmt "widths" (last 1 ($fbWidths | default $widths)))) -}}
+  <picture class="contents">
+    {{- range $fmt := slice "avif" "webp" }}
+    <source type="image/{{ $fmt }}" sizes="{{ $sizes }}" srcset="{{ (partial "func/srcset.html" (merge $opts (dict "format" $fmt))).srcset }}">
+    {{- end }}
+    <img src="{{ $fb.largest.RelPermalink }}" width="{{ $fb.largest.Width }}" height="{{ $fb.largest.Height }}" {{ $attrs | safeHTMLAttr }}>
+  </picture>
+{{- end -}}

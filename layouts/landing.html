@@ -1,0 +1,12 @@
+{{/*
+  Landing pages built from front-matter blocks (e.g. /anki/). Same paper ground as the rest
+  of the site; a `theme` + `pattern` turn the title block into a framed brand panel.
+  Front matter: layout: landing, blocks: […], theme: brand (optional), pattern: images/patterns/….svg (optional)
+*/}}
+{{ define "main" }}
+{{ partial "components/hero.html" . }}
+{{ partial "components/blocks.html" . }}
+{{ with .Content }}
+  <div class="container-prose py-12">{{ with partial "components/prose.html" $ }}{{ .Content }}{{ end }}</div>
+{{ end }}
+{{ end }}

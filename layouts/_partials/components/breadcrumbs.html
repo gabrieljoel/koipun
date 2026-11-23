@@ -1,0 +1,10 @@
+{{/* Visible breadcrumbs (JSON-LD equivalent lives in head/schema.html). Context: page. */}}
+<nav aria-label="Breadcrumb" class="w-full min-w-0">
+  <ol class="flex items-center gap-2 text-sm whitespace-nowrap text-subtle">
+    {{- range .Ancestors.Reverse }}
+      <li><a href="{{ .RelPermalink }}" class="transition-colors hover:text-pen">{{ cond .IsHome "Home" .LinkTitle }}</a></li>
+      <li aria-hidden="true">/</li>
+    {{- end }}
+    <li aria-current="page" class="max-w-full min-w-0 truncate text-muted">{{ .LinkTitle }}</li>
+  </ol>
+</nav>

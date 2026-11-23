@@ -1,0 +1,20 @@
+# Build output
+/public/
+/resources/_gen/
+/.hugo_build.lock
+hugo_stats.json
+
+# Dependencies
+node_modules/
+
+# Scraped legacy site — reference only, kept out of the repo
+/_archive/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+
+# Local Netlify folder
+.netlify

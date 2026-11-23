@@ -1,0 +1,12 @@
+{{/*
+  Page title block. Context: page. Optional .Params.eyebrow (handwritten note) / .Description.
+*/}}
+<header class="mb-12 max-w-3xl">
+  {{- with .Params.eyebrow }}
+    <p class="mb-4 inline-block origin-left -rotate-2 font-hand text-2xl font-semibold text-pen">{{ . }}</p>
+  {{- end }}
+  <h1 class="text-4xl font-black tracking-tight sm:text-5xl">{{ .Title }}</h1>
+  {{- with .Description }}
+    <p class="mt-5 text-lg text-pretty text-muted sm:text-xl">{{ . }}</p>
+  {{- end }}
+</header>

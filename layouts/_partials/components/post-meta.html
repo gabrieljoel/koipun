@@ -1,0 +1,10 @@
+{{/* Byline: author · date · reading time. Context: page. */}}
+<p class="flex flex-wrap items-center gap-x-2 gap-y-1 text-base text-muted">
+  {{- with index (.GetTerms "authors") 0 }}
+    <a href="{{ .RelPermalink }}" rel="author" class="font-semibold text-fg transition-colors hover:text-pen">{{ .LinkTitle }}</a>
+    <span aria-hidden="true">&middot;</span>
+  {{- end }}
+  <time datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate | time.Format ":date_long" }}</time>
+  <span aria-hidden="true">&middot;</span>
+  <span>{{ .ReadingTime }} min read</span>
+</p>

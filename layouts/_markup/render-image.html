@@ -1,0 +1,55 @@
+{{- /*
+  Markdown image → responsive <figure>. Resolves page resource, then global asset, then remote.
+  Markdown title becomes the caption:  ![alt](cover.jpg "Caption")
+  Block attributes pass through:       {.float-right}
+*/ -}}
+{{- $u := urls.Parse .Destination -}}
+{{- $img := "" -}}
+{{- if $u.IsAbs -}}
+  {{- with try (resources.GetRemote $u.String) }}{{ with .Value }}{{ $img = . }}{{ end }}{{ end -}}
+{{- else -}}
+  {{- $img = or (.PageInner.Resources.Get $u.Path) (resources.Get $u.Path) -}}
+{{- end -}}
+
+{{- $class := .Attributes.class | default "" -}}
+{{- /* Authored {.float-left} / {.float-right} → responsive utilities: float beside the text
+       from 640px (natural width, max 60% of the column), stacked and centred on phones.
+       The authored names are not emitted, so Tailwind's own .float-* never overrides this. */ -}}
+{{- $float := "" -}}
+{{- if in $class "float-left" }}{{ $float = "left" }}{{ else if in $class "float-right" }}{{ $float = "right" }}{{ end -}}
+{{- $figClass := strings.TrimSpace (replaceRE `\bfloat-(left|right)\b` "" $class) -}}
+{{- with $float -}}
+  {{- $figClass = printf "%s max-sm:mx-auto sm:my-2 sm:max-w-3/5 %s" $figClass (cond (eq . "left") "sm:float-left sm:mr-8" "sm:float-right sm:ml-8") | strings.TrimSpace -}}
+{{- end -}}
+{{- /* An authored width class ({.w-64}) is the display width: use it for `sizes` (Tailwind: n × 4px) */ -}}
+{{- $fixedW := 0 }}{{ with findRESubmatch `\bw-(\d+)\b` $class 1 }}{{ $fixedW = mul (int (index (index . 0) 1)) 4 }}{{ end -}}
+{{- if .IsBlock -}}
+<figure{{ with $figClass }} class="{{ . }}"{{ end }}>
+{{- end -}}
+{{- if $img -}}
+  {{- /* Truthful `sizes` = the browser downloads only the pixels it will paint */ -}}
+  {{- /* Images render at natural width, capped by the 768px column (floats: 60% ≈ 460px) */ -}}
+  {{- $sizes := "(min-width: 768px) 768px, 100vw" -}}
+  {{- if reflect.IsImageResourceProcessable $img -}}
+    {{- $n := $img.Width -}}
+    {{- $mobile := cond (lt $n 400) (printf "%dpx" $n) "100vw" -}}
+    {{- if not .IsBlock -}}
+      {{- $sizes = printf "%dpx" (cond (gt $n 768) 768 $n) -}}
+    {{- else if $fixedW -}}
+      {{- $sizes = printf "%dpx" (cond (gt $n $fixedW) $fixedW $n) -}}
+    {{- else if $float -}}
+      {{- $sizes = printf "(min-width: 640px) %dpx, %s" (cond (gt $n 460) 460 $n) $mobile -}}
+    {{- else -}}
+      {{- $w := cond (gt $n 768) 768 $n -}}
+      {{- $sizes = printf "(min-width: %dpx) %dpx, %s" (add $w 32) $w $mobile -}}
+    {{- end -}}
+  {{- end -}}
+  {{- partial "components/picture.html" (dict "image" $img "alt" .PlainText "sizes" $sizes "class" (cond .IsBlock "" $class)) -}}
+{{- else -}}
+  {{- warnf "%s: image %q not found" .PageInner.File.Path .Destination -}}
+  <img src="{{ .Destination }}" alt="{{ .PlainText }}" loading="lazy" decoding="async">
+{{- end -}}
+{{- if .IsBlock -}}
+  {{- with .Title }}<figcaption>{{ . | markdownify }}</figcaption>{{ end -}}
+</figure>
+{{- end -}}

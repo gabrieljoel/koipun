@@ -1,0 +1,349 @@
+/* ==========================================================================
+   Koipun design system: "Genkō" (原稿用紙, the squared paper Japanese learners write on)
+   Squared paper ground · sumi ink · the logo's koi red as a teacher's red pen.
+
+   Layers, from raw to applied:
+     1. Primitives   @theme: the only colors, fonts and shadows that exist. Tailwind's
+                     default palette is removed, so a stray `stone-500` can't sneak in.
+     2. Semantics    surface / raised / fg / muted / line / pen / btn … as CSS variables,
+                     swapped in ONE place for dark mode and the red brand theme.
+                     Templates use only these, with no `dark:` variants anywhere.
+     3. Utilities    a few Genkō primitives (@utility): paper-grid, card, chip-hand,
+                     pen-underline, link-pen, prose-genko, container-page.
+     4. Components   Hugo partials in layouts/_partials/components/ compose the above.
+   Fonts are self-hosted subsets declared in layouts/_partials/head/fonts.html.
+   ========================================================================== */
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@source "hugo_stats.json";
+
+/* ---------- 1. Primitives ---------- */
+@theme {
+  --color-*: initial;
+  --color-white: #fff;
+  --color-black: #000;
+
+  /* Koi red: 600 is the logo red */
+  --color-koi-50: #fff4f1;
+  --color-koi-100: #ffe3dd;
+  --color-koi-200: #ffc2b7;
+  --color-koi-300: #ff9a8a;
+  --color-koi-400: #ff7a66;
+  --color-koi-500: #f0432c;
+  --color-koi-600: #d9230f;
+  --color-koi-700: #b81d0c;
+  --color-koi-800: #8f1608;
+  --color-koi-900: #561b15; /* the Anki pattern ground */
+  --color-koi-950: #2e0d09;
+
+  /* Sumi: warm paper-to-ink neutrals */
+  --color-sumi-50: #fffdf8;  /* paper */
+  --color-sumi-100: #f7f2ea;
+  --color-sumi-200: #e9e2d6;
+  --color-sumi-300: #d3cabc;
+  --color-sumi-400: #b9b0a2;
+  --color-sumi-500: #8c8478;
+  --color-sumi-600: #6b645c;
+  --color-sumi-700: #4a453f;
+  --color-sumi-750: #3a352e; /* night rule */
+  --color-sumi-800: #2a2622;
+  --color-sumi-850: #1c1915; /* night paper */
+  --color-sumi-900: #1c1a17; /* ink */
+  --color-sumi-950: #14120f; /* night */
+
+  /* Grid-paper blue (lines only) */
+  --color-grid-blue: #e3eaf3;
+
+  --font-*: initial;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", "Hiragino Sans", "Noto Sans JP", sans-serif;
+  --font-display: "Zen Kaku Gothic New", "Inter", ui-sans-serif, system-ui, "Hiragino Sans", "Noto Sans JP", sans-serif;
+  --font-hand: "Caveat", "Segoe Print", "Bradley Hand", cursive;
+  --font-ja: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic UI", "Yu Gothic", Meiryo, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --shadow-*: initial;
+
+  --leading-display: 1.04; /* hero and display headlines */
+}
+
+/* ---------- 2. Semantic tokens ---------- */
+@theme inline {
+  --color-surface: var(--surface);     /* page ground (behind the grid lines) */
+  --color-raised: var(--raised);       /* cards, panels, header */
+  --color-tint: var(--tint);           /* quotes, hover fills */
+  --color-fg: var(--fg);               /* headings, strong text */
+  --color-body: var(--body);           /* long-form text */
+  --color-muted: var(--muted);         /* secondary text */
+  --color-subtle: var(--subtle);       /* meta: dates, counts, breadcrumbs */
+  --color-line: var(--line);           /* ink outlines (cards, images, rules) */
+  --color-hairline: var(--hairline);   /* quiet separators */
+  --color-grid: var(--grid);           /* grid-paper lines */
+  --color-pen: var(--pen);             /* red-pen TEXT (meets 4.5:1) */
+  --color-pen-mark: var(--pen-mark);   /* red-pen strokes: underlines, chip borders, drop caps */
+  --color-btn: var(--btn);             /* primary button fill */
+  --color-btn-fg: var(--btn-fg);       /* primary button text */
+  --color-btn-hover: var(--btn-hover); /* primary button hover fill */
+
+  /* Offset "notebook" shadows: hard, no blur, in ink */
+  --shadow-paper: 4px 4px 0 var(--drop);
+  --shadow-paper-lg: 8px 8px 0 var(--drop);
+  --shadow-press: 0 3px 0 var(--btn-press);
+}
+
+/* Themes: each sets every role. Defined once as utilities, so a theme can be applied to the
+   whole page (:root, below) or to any element (the style guide previews all three side by side). */
+
+/* "Paper": the default */
+@utility theme-paper {
+  color-scheme: light;
+  --surface: var(--color-sumi-50);
+  --raised: var(--color-sumi-50);
+  --tint: var(--color-koi-50);
+  --fg: var(--color-sumi-900);
+  --body: var(--color-sumi-800);
+  --muted: var(--color-sumi-700);
+  --subtle: var(--color-sumi-600);
+  --line: var(--color-sumi-900);
+  --hairline: var(--color-sumi-200);
+  --grid: var(--color-grid-blue);
+  --pen: var(--color-koi-700);
+  --pen-mark: var(--color-koi-600);
+  --btn: var(--color-koi-600);
+  --btn-fg: var(--color-white);
+  --btn-hover: var(--color-koi-700);
+  --btn-press: var(--color-koi-800);
+  --drop: var(--color-sumi-900);
+}
+
+/* "Night study": sumi-ink paper; the red pen brightens to keep contrast. */
+@utility theme-night {
+  color-scheme: dark;
+  --surface: var(--color-sumi-950);
+  --raised: var(--color-sumi-850);
+  --tint: color-mix(in oklab, var(--color-koi-400) 12%, var(--color-sumi-850));
+  --fg: #eee7db;
+  --body: #dcd4c7;
+  --muted: var(--color-sumi-400);
+  --subtle: var(--color-sumi-400);
+  --line: var(--color-sumi-750);
+  --hairline: var(--color-sumi-750);
+  --grid: rgb(255 255 255 / 0.05);
+  --pen: var(--color-koi-400);
+  --pen-mark: var(--color-koi-500);
+  --btn: var(--color-koi-600);
+  --btn-fg: var(--color-white);
+  --btn-hover: var(--color-koi-700); /* white on koi-500 would be 3.8:1 */
+  --btn-press: var(--color-black);
+  --drop: var(--color-black);
+}
+
+/* "Brand": white on the koi-red line-art pattern (e.g. the Anki title panel). */
+@utility theme-brand {
+  color-scheme: dark;
+  --surface: var(--color-koi-900);
+  --raised: rgb(255 255 255 / 0.06);
+  --tint: rgb(255 255 255 / 0.1);
+  --fg: var(--color-white);
+  --body: rgb(255 255 255 / 0.92);
+  --muted: rgb(255 255 255 / 0.88);
+  --subtle: rgb(255 255 255 / 0.78);
+  --line: var(--color-white);
+  --hairline: rgb(255 255 255 / 0.25);
+  --pen: var(--color-koi-200);
+  --pen-mark: var(--color-koi-300);
+  --btn: var(--color-white);
+  --btn-fg: var(--color-koi-700);
+  --btn-hover: var(--color-koi-50);
+  --btn-press: var(--color-koi-950);
+  --drop: rgb(0 0 0 / 0.35);
+  color: var(--fg);
+  background-color: var(--surface);
+}
+
+:root {
+  @apply theme-paper;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    @apply theme-night;
+  }
+}
+
+/* ---------- Base ---------- */
+@layer base {
+  html {
+    @apply scroll-smooth antialiased;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-surface paper-grid font-sans text-body;
+  }
+  h1, h2, h3 {
+    @apply font-display text-balance text-fg;
+  }
+  ::selection {
+    @apply bg-koi-200 text-sumi-900;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-pen-mark;
+  }
+
+  /* ---------- Japanese text & furigana (<ruby>) ----------
+     Native HTML ruby (Chromium, Firefox, WebKit). Readings are written in red pen.
+     <rp> gives a "(reading)" fallback in RSS readers and plain-text copies. */
+  :lang(ja) {
+    font-family: var(--font-ja);
+    line-break: strict;            /* JIS kinsoku rules */
+  }
+  :where(h1, h2, h3) :lang(ja), :where(h1, h2, h3):lang(ja) {
+    font-family: var(--font-display);
+  }
+  ruby {
+    white-space: nowrap;           /* an annotated word never splits across lines */
+    ruby-position: over;
+    -webkit-ruby-position: before; /* Safari < 18.2 */
+    ruby-align: center;
+  }
+  rt {
+    font-size: 0.5em;
+    line-height: 1;                /* readings must not inflate paragraph leading */
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-align: center;
+    color: var(--pen);
+    user-select: none;             /* copying gives clean kanji, not 先せん生せい */
+    -webkit-user-select: none;
+  }
+  rp {
+    display: none;
+  }
+}
+
+/* ---------- 3. Genkō utilities ---------- */
+
+/* Page width */
+@utility container-page {
+  @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+}
+@utility container-prose {
+  @apply mx-auto w-full max-w-3xl px-4 sm:px-6;
+}
+
+/* Squared paper: 32px squares (24px on phones), lines in --grid */
+@utility paper-grid {
+  --grid-size: 1.5rem;
+  background-image:
+    linear-gradient(var(--color-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+  @variant sm {
+    --grid-size: 2rem;
+  }
+}
+
+/* A sheet of paper with an ink outline: cards, panels, menus */
+@utility card {
+  @apply rounded-md border-2 border-line bg-raised;
+}
+
+/* Interactive paper: lifts off the desk on hover */
+@utility lift {
+  @apply transition hover:-translate-y-0.5 hover:shadow-paper;
+}
+
+/* Handwritten red-pen label: categories, eyebrows, tags */
+@utility chip-hand {
+  @apply inline-block rounded-full border-2 border-pen-mark px-3 font-hand text-xl/tight font-semibold text-pen;
+}
+
+/* Hand-drawn red underline beneath a word (e.g. the hero's <em>) */
+@utility pen-underline {
+  position: relative;
+  display: inline-block;
+  font-style: normal;
+  &::after {
+    content: "";
+    position: absolute;
+    inset-inline: -0.06em;
+    bottom: -0.16em;
+    height: 0.22em;
+    background-color: var(--color-pen-mark);
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 24' preserveAspectRatio='none'%3E%3Cpath d='M4 16 C60 6 140 4 216 12' fill='none' stroke='black' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+    pointer-events: none;
+  }
+}
+
+/* Body links: ink text, red-pen underline */
+@utility link-pen {
+  @apply font-medium text-fg underline decoration-pen-mark decoration-2 underline-offset-4 transition-colors hover:text-pen;
+}
+
+/* Long-form typography on top of @tailwindcss/typography, driven by the semantic tokens
+   (so it needs no prose-invert: dark mode and the brand theme just work). */
+@utility prose-genko {
+  /* &.prose outranks the plugin's own .prose color variables (same layer, later in the file) */
+  &.prose {
+    --tw-prose-body: var(--color-body);
+    --tw-prose-headings: var(--color-fg);
+    --tw-prose-lead: var(--color-muted);
+    --tw-prose-links: var(--color-fg);
+    --tw-prose-bold: var(--color-fg);
+    --tw-prose-counters: var(--color-subtle);
+    --tw-prose-bullets: var(--color-pen-mark);
+    --tw-prose-hr: var(--color-hairline);
+    --tw-prose-quotes: var(--color-fg);
+    --tw-prose-quote-borders: var(--color-line);
+    --tw-prose-captions: var(--color-pen);
+    --tw-prose-kbd: var(--color-fg);
+    --tw-prose-code: var(--color-fg);
+    --tw-prose-pre-code: var(--color-sumi-100);
+    --tw-prose-pre-bg: var(--color-sumi-900);
+    --tw-prose-th-borders: var(--color-line);
+    --tw-prose-td-borders: var(--color-hairline);
+  }
+
+  & :where(h2, h3):not(:where(.not-prose *)) {
+    @apply font-display font-black tracking-tight;
+  }
+  & :where(h2, hr):not(:where(.not-prose *)) {
+    clear: both;                   /* a floated figure never runs into the next section */
+  }
+  & :where(a):not(:where(.not-prose *)) {
+    @apply link-pen;
+  }
+  & :where(blockquote):not(:where(.not-prose *)) {
+    @apply card clear-both bg-tint px-7 py-5 font-display font-bold not-italic;
+    quotes: none;
+  }
+  & :where(blockquote p):not(:where(.not-prose *))::before,
+  & :where(blockquote p):not(:where(.not-prose *))::after {
+    content: none;
+  }
+  /* Post images keep their authored size (like the original site), capped by the column */
+  & :where(figure):not(:where(.not-prose *)) {
+    @apply text-center;
+  }
+  & :where(figure img, p > img):not(:where(.not-prose *)) {
+    @apply mx-auto h-auto max-w-full rounded-md border-2 border-line;
+  }
+  & :where(figcaption):not(:where(.not-prose *)) {
+    @apply font-hand text-xl/snug font-semibold;
+  }
+  /* Lines containing ruby get room so readings never collide with the line above */
+  & :where(p, li):has(ruby) {
+    line-height: 2.1;
+  }
+}
+
+/* Big red drop cap on the first paragraph of a post */
+@utility dropcap {
+  & > p:first-of-type::first-letter {
+    float: left;
+    margin: 0.08em 0.12em 0 0;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 3.4em;
+    line-height: 0.85;
+    color: var(--color-pen-mark);
+  }
+}

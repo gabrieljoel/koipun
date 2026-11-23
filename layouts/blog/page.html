@@ -1,0 +1,40 @@
+{{/* Blog post: header, featured photo, text on a clean paper panel, author, related posts. */}}
+{{ define "main" }}
+<article class="pt-12 sm:pt-16">
+  <header class="container-prose flex flex-col items-start gap-5">
+    {{ partial "components/breadcrumbs.html" . }}
+    {{ range first 1 (.GetTerms "categories") }}{{ partial "components/category-chip.html" (dict "term" .) }}{{ end }}
+    <h1 class="text-4xl/tight font-black tracking-tight sm:text-5xl/tight">{{ .Title }}</h1>
+    {{ with .Description }}<p class="text-xl text-pretty text-muted">{{ . }}</p>{{ end }}
+    {{ partial "components/post-meta.html" . }}
+  </header>
+
+  {{ with partial "func/featured-image.html" . }}
+  <figure class="mx-auto mt-10 w-full max-w-5xl px-4 sm:px-6">
+    {{ partial "components/picture.html" (dict
+      "image" . "alt" ($.Params.imageAlt | default "") "eager" true "ratio" "16x7" "anchor" "Center"
+      "widths" (slice 640 960 1280 1600)
+      "sizes" "(min-width: 1072px) 1000px, calc(100vw - 2rem)"
+      "class" "aspect-16/7 w-full rounded-md border-2 border-line object-cover shadow-paper-lg"
+    ) }}
+  </figure>
+  {{ end }}
+
+  <div class="container-prose mt-12">
+    <div class="rounded-md bg-surface py-2 sm:-mx-6 sm:px-6">
+      {{ with partial "components/prose.html" . }}{{ .Content }}{{ end }}
+    </div>
+    {{ partial "components/author-box.html" . }}
+    {{ with hugo.Data.ask_ai.post }}
+      {{ partial "components/ask-ai.html" (dict "label" .label "question" (printf .question $.Permalink) "class" "mt-8") }}
+    {{ end }}
+  </div>
+</article>
+
+{{ with (.Site.RegularPages.Related .) | first 3 }}
+  <aside class="container-page pt-20" aria-labelledby="related">
+    <h2 id="related" class="mb-8 text-3xl font-black tracking-tight">Keep reading</h2>
+    {{ partial "components/post-grid.html" (dict "pages" .) }}
+  </aside>
+{{ end }}
+{{ end }}

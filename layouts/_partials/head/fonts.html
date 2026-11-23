@@ -1,0 +1,33 @@
+{{- /*
+  Self-hosted, subset web fonts (assets/fonts/web, SIL OFL). Fingerprinted URLs, so the
+  immutable cache header on /fonts/ is safe. The families are named in @theme (main.css).
+    Inter                 body text (variable 400–700)
+    Zen Kaku Gothic New   headings, 700 + 900; Japanese glyphs load only when a heading uses them
+    Caveat                handwritten margin notes (not preloaded; swaps in)
+*/ -}}
+{{- $faces := slice
+  (dict "family" "Inter" "weight" "400 700" "file" "inter-latin" "range" "latin" "preload" true)
+  (dict "family" "Zen Kaku Gothic New" "weight" "900" "file" "zen-kaku-gothic-new-900-latin" "range" "latin" "preload" true)
+  (dict "family" "Zen Kaku Gothic New" "weight" "900" "file" "zen-kaku-gothic-new-900-ja" "range" "ja")
+  (dict "family" "Zen Kaku Gothic New" "weight" "700" "file" "zen-kaku-gothic-new-700-latin" "range" "latin")
+  (dict "family" "Zen Kaku Gothic New" "weight" "700" "file" "zen-kaku-gothic-new-700-ja" "range" "ja")
+  (dict "family" "Caveat" "weight" "600" "file" "caveat-600-latin" "range" "latin")
+-}}
+{{- $ranges := dict
+  "latin" "U+0000-017F, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2190-2199, U+2212, U+2215, U+FEFF, U+FFFD"
+  "ja" "U+3000-303F, U+3040-30FF, U+3400-9FFF, U+FF00-FFEF"
+-}}
+{{- $css := "" -}}
+{{- range $face := $faces -}}
+  {{- with resources.Get (printf "fonts/web/%s.woff2" $face.file) -}}
+    {{- $f := . | resources.Copy (printf "fonts/%s.woff2" $face.file) | fingerprint -}}
+    {{- if $face.preload }}
+<link rel="preload" href="{{ $f.RelPermalink }}" as="font" type="font/woff2" crossorigin>
+    {{- end -}}
+    {{- $css = printf `%s@font-face{font-family:"%s";font-style:normal;font-weight:%s;font-display:swap;src:url(%s) format("woff2");unicode-range:%s}`
+      $css $face.family $face.weight $f.RelPermalink (index $ranges $face.range) -}}
+  {{- else -}}
+    {{- errorf "font file fonts/web/%s.woff2 not found" $face.file -}}
+  {{- end -}}
+{{- end }}
+<style>{{ $css | safeCSS }}</style>

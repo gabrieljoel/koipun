@@ -1,0 +1,11 @@
+{{ define "main" }}
+<div class="container-page py-24 text-center">
+  <p class="inline-block -rotate-2 font-hand text-3xl font-semibold text-pen">迷子？ lost?</p>
+  <h1 class="mt-4 text-5xl font-black tracking-tight">Page not found</h1>
+  <p lang="ja" class="mt-4 text-lg text-muted">お探しのページは見つかりませんでした。</p>
+  <div class="mt-10 flex flex-wrap justify-center gap-3">
+    {{ partial "components/button.html" (dict "href" "/" "text" "Go home") }}
+    {{ partial "components/button.html" (dict "href" "/blog/" "text" "Read the blog" "variant" "secondary") }}
+  </div>
+</div>
+{{ end }}

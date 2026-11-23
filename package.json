@@ -1,0 +1,21 @@
+{
+  "name": "koipun",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "hugo server --disableFastRender --buildDrafts",
+    "build": "hugo --gc --minify --cleanDestinationDir",
+    "preview": "hugo server --environment production --gc --minify",
+    "format:classes": "node scripts/tailwind/sort-classes.mjs",
+    "check": "bash scripts/build.sh"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "4.3.5",
+    "@tailwindcss/node": "4.3.5",
+    "@tailwindcss/typography": "0.5.20",
+    "tailwindcss": "4.3.5"
+  }
+}

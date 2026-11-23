@@ -1,0 +1,21 @@
+# {{ site.Title }}
+
+> {{ site.Params.description }}
+
+Every page is also available as clean Markdown by appending `index.md` to its URL (e.g. {{ site.Home.Permalink }}about/index.md).
+
+{{- define "llms-link" }}
+- [{{ .Title }}]({{ with .OutputFormats.Get "markdown" }}{{ .Permalink }}{{ else }}{{ .Permalink }}{{ end }}){{ with .Description }}: {{ . | plainify }}{{ end }}
+{{- end }}
+
+## Pages
+{{ range where site.RegularPages "Section" "" }}{{ template "llms-link" . }}{{ end }}
+
+{{ range site.Sections }}
+## {{ .Title }}
+{{ range .RegularPagesRecursive.ByPublishDate.Reverse }}{{ template "llms-link" . }}{{ end }}
+{{ end }}
+
+## Optional
+- [Sitemap]({{ "sitemap.xml" | absURL }})
+- [RSS feed]({{ with site.GetPage "/blog" }}{{ with .OutputFormats.Get "rss" }}{{ .Permalink }}{{ end }}{{ end }})

@@ -1,0 +1,13 @@
+{{/* Prev / page x of y / Next. Context: paginator. */}}
+{{- if gt .TotalPages 1 }}
+{{- $link := "inline-flex min-h-11 lift items-center gap-2 card px-4 font-semibold text-fg" -}}
+<nav class="mt-16 flex items-center justify-between border-t-2 border-dashed border-line pt-8" aria-label="Pagination">
+  {{- with .Prev }}
+    <a href="{{ .URL }}" rel="prev" class="{{ $link }}">{{ partial "components/icon.html" (dict "name" "arrow-left" "class" "size-4") }} Newer</a>
+  {{- else }}<span></span>{{ end }}
+  <p class="font-hand text-xl font-semibold text-pen">page {{ .PageNumber }} of {{ .TotalPages }}</p>
+  {{- with .Next }}
+    <a href="{{ .URL }}" rel="next" class="{{ $link }}">Older {{ partial "components/icon.html" (dict "name" "arrow-right" "class" "size-4") }}</a>
+  {{- else }}<span></span>{{ end }}
+</nav>
+{{- end }}

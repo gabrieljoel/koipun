@@ -1,0 +1,12 @@
+{{/*
+  Returns the page's featured image resource, or nil.
+  Order: front matter `image` (page resource or global asset) → bundle file named featured.* / cover.*
+*/}}
+{{ $img := "" }}
+{{ with .Params.image }}
+  {{ $img = or ($.Resources.Get .) (resources.Get .) }}
+{{ end }}
+{{ if not $img }}
+  {{ $img = .Resources.GetMatch "{featured,cover}.*" }}
+{{ end }}
+{{ return $img }}

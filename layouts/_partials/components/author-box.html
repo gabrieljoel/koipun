@@ -1,0 +1,13 @@
+{{/* Author bio under posts (E-E-A-T). Context: page. Author page = first "authors" term. */}}
+{{- with index (.GetTerms "authors") 0 }}
+<aside class="mt-16 flex gap-5 card p-6" aria-label="About the author">
+  {{- with partial "func/featured-image.html" . }}
+    {{ partial "components/picture.html" (dict "image" . "alt" "" "ratio" "1x1" "anchor" "Center" "widths" (slice 128 192) "sizes" "64px" "class" "size-16 shrink-0 rounded-full border-2 border-line object-cover") }}
+  {{- end }}
+  <div>
+    <p class="font-semibold text-fg">Written by <a href="{{ .RelPermalink }}" rel="author" class="link-pen">{{ .LinkTitle }}</a></p>
+    {{ with .Description }}<p class="mt-1.5 text-muted">{{ . }}</p>{{ end }}
+    {{ with .Params.elsewhere }}<p class="mt-3 text-sm text-muted [&_a]:link-pen">{{ . | markdownify }}</p>{{ end }}
+  </div>
+</aside>
+{{- end }}

@@ -1,0 +1,7 @@
+{{/*
+  Wraps long-form content in Genkō typography. Blog posts get the red drop cap.
+  Usage: {{ with partial "components/prose.html" . }}{{ .Content }}{{ end }}
+*/}}
+<div class="prose prose-lg prose-genko max-w-none{{ if and .IsPage (eq .Section "blog") }} dropcap{{ end }}">
+  {{ templates.Inner . }}
+</div>

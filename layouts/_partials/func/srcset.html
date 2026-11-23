@@ -1,0 +1,36 @@
+{{/*
+  Builds a responsive image set. Single source of truth for resizing rules.
+
+  Params: image (resource), format ("avif"|"webp"|"jpg"|"png"), widths (slice of int),
+          anchor (crop anchor, default Smart),
+          ratio ("16x9", optional crop)
+  Returns: dict
+    srcset   "url 480w, url 768w, …"
+    largest  the widest processed resource (for width/height + fallback src)
+    widths   the widths actually used (never upscaled)
+*/}}
+{{- $img := .image -}}
+{{- $ratioW := 0 }}{{ $ratioH := 0 -}}
+{{- with .ratio }}{{ $p := split . "x" }}{{ $ratioW = int (index $p 0) }}{{ $ratioH = int (index $p 1) }}{{ end -}}
+
+{{- /* Widest output that needs no upscaling. A crop is limited by height too:
+       a 1x1 crop of a 1038×689 photo can be at most 689px wide. */ -}}
+{{- $maxW := $img.Width -}}
+{{- if $ratioW }}{{ $maxW = math.Min $img.Width (div (mul $img.Height $ratioW) $ratioH) | int }}{{ end -}}
+{{- $use := slice -}}
+{{- range .widths }}{{ if le . $maxW }}{{ $use = $use | append . }}{{ end }}{{ end -}}
+{{- if not $use }}{{ $use = slice $maxW }}{{ end -}}
+
+{{- /* Crop once at full size, then resize that crop: every width gets the same framing
+       (Smart cropping per width can frame each size differently). */ -}}
+{{- $src := $img -}}
+{{- if $ratioW }}{{ $src = $img.Process (printf "fill %dx%d %s q100" $maxW (div (mul $maxW $ratioH) $ratioW) (.anchor | default "Smart")) }}{{ end -}}
+
+{{- $parts := slice -}}
+{{- $largest := "" -}}
+{{- range $w := $use -}}
+  {{- $r := $src.Process (printf "resize %dx %s" $w $.format) -}}
+  {{- $parts = $parts | append (printf "%s %dw" $r.RelPermalink $r.Width) -}}
+  {{- $largest = $r -}}
+{{- end -}}
+{{- return dict "srcset" (delimit $parts ", ") "largest" $largest "widths" $use -}}

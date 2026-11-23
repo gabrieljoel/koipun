@@ -1,0 +1,9 @@
+{{/*
+  Inline SVG icon from assets/icons/<name>.svg (UI icons: Heroicons outline, MIT; logo-*: Simple Icons, CC0).
+  Params: name, class
+*/}}
+{{- with resources.Get (printf "icons/%s.svg" .name) -}}
+  {{- replace .Content "<svg " (printf `<svg class="%s" aria-hidden="true" focusable="false" ` $.class) | safeHTML -}}
+{{- else -}}
+  {{- errorf "icon %q not found in assets/icons/" .name -}}
+{{- end -}}

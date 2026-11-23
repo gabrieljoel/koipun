@@ -1,0 +1,23 @@
+# "Ask your AI": keys that open an assistant in a new tab with a question already typed in (?q=).
+# Drawn by layouts/_partials/components/ask-ai.html. Same idea as gabezen.com's footer keys.
+# Plain links: no JavaScript, no tracking, nothing sent until the visitor clicks.
+#
+# Used in two places:
+#   site: the footer of every page
+#   post: under every blog post (%s = the post's URL, so the assistant reads that post)
+
+site:
+  label: Ask your AI about Koipun
+  question: "What is Koipun (koipun.com)? It's a Japanese-learning blog by Gabriel J. Pérez Irizarry with interviews of people who learned Japanese, their study methods, and free Anki decks for the GENKI textbook grammar. Read the site and tell me which posts and resources to start with for my level of Japanese."
+
+post:
+  label: Ask your AI about this post
+  question: "Read %s and summarize the Japanese study method or advice it describes. Then tell me how I could apply it to my own studies, and what it doesn't cover."
+
+# Each key: name, the address the URL-encoded question is appended to, and its logo (assets/icons/<icon>.svg)
+ais:
+  - { name: ChatGPT, url: "https://chatgpt.com/?q=", icon: logo-openai }
+  - { name: Claude, url: "https://claude.ai/new?q=", icon: logo-claude }
+  - { name: Perplexity, url: "https://www.perplexity.ai/search?q=", icon: logo-perplexity }
+  # udm=50 opens Google's AI Mode instead of the results page
+  - { name: Google AI Mode, url: "https://www.google.com/search?udm=50&q=", icon: logo-google }

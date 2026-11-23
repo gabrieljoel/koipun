@@ -1,0 +1,42 @@
+{{/*
+  Home hero, Genkō style: headline with a red-pen underline, a handwritten note, and a
+  tilted photo "taped" into the notebook. The photo is the LCP image (eager, high priority).
+
+  Context: page. Front matter:
+    hero:
+      note: ↓ start here, 先輩 say          # handwritten line above the headline (optional)
+      heading: Learn how to *learn* Japanese # *word* gets the red-pen underline
+      subheading: …
+      ctas: [{ href, text, variant }]       # see components/button.html
+      image: images/hero/izakaya.jpg        # assets/ or page resource
+      alt: …
+      caption: 居酒屋 = izakaya …            # handwritten label on the photo (optional)
+*/}}
+{{- with .Params.hero -}}
+{{- $img := or ($.Resources.Get .image) (resources.Get .image) -}}
+<section class="container-page grid items-center gap-12 py-12 sm:py-16 lg:grid-cols-[1.15fr_1fr] lg:gap-14 lg:py-20">
+  <div class="flex flex-col gap-6 sm:gap-7">
+    {{ with .note }}<p class="origin-left -rotate-2 font-hand text-2xl font-semibold text-pen sm:text-3xl">{{ . }}</p>{{ end }}
+    <h1 class="text-5xl/display font-black tracking-tight sm:text-6xl/display xl:text-7xl/display [&_em]:pen-underline">{{ .heading | markdownify }}</h1>
+    {{ with .subheading }}<p class="max-w-xl text-lg/relaxed text-pretty text-muted sm:text-xl/relaxed">{{ . }}</p>{{ end }}
+    {{ with .ctas }}
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+        {{ range . }}{{ partial "components/button.html" (merge . (dict "size" "lg")) }}{{ end }}
+      </div>
+    {{ end }}
+  </div>
+  {{ with $img }}
+  <figure class="relative mx-2 mb-6 sm:mx-6 lg:mx-0">
+    {{ partial "components/picture.html" (dict
+      "image" . "alt" $.Params.hero.alt "eager" true "ratio" "4x3" "anchor" "Center"
+      "widths" (slice 480 768 1080 1440)
+      "sizes" "(min-width: 1152px) 480px, (min-width: 1024px) 40vw, calc(100vw - 3rem)"
+      "class" "aspect-4/3 w-full rotate-1 rounded-md border-2 border-line object-cover shadow-paper-lg"
+    ) }}
+    {{ with $.Params.hero.caption }}
+      <figcaption class="absolute -bottom-6 -left-2 -rotate-3 card px-4 py-1.5 font-hand text-xl font-semibold text-fg sm:-left-7 sm:text-2xl">{{ . }}</figcaption>
+    {{ end }}
+  </figure>
+  {{ end }}
+</section>
+{{- end -}}

@@ -1,0 +1,7 @@
+{{/*
+  Handwritten red-pen category label. Params: term (taxonomy term page), class (extra classes)
+  Lowercased like a margin note; the real name stays the accessible link text via title.
+*/}}
+{{- with .term -}}
+<a href="{{ .RelPermalink }}" title="{{ .LinkTitle }}" class="chip-hand relative z-10 -rotate-2 transition-transform hover:rotate-0 {{ $.class }}">{{ .Params.short | default .LinkTitle | lower }}</a>
+{{- end -}}

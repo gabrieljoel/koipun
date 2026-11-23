@@ -1,0 +1,13 @@
+{{/*
+  Big centered statement. Params: body (markdown), ctas, id. Colors follow the surrounding theme.
+*/}}
+<section {{ with .id }}id="{{ . }}" {{ end }}class="container-page scroll-mt-24 py-12 sm:py-16">
+  <div class="mx-auto max-w-4xl text-center font-display text-2xl/snug font-bold text-balance text-fg sm:text-3xl/snug [&_a]:link-pen">
+    {{ .body | markdownify }}
+  </div>
+  {{ with .ctas }}
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+      {{ range . }}{{ partial "components/button.html" . }}{{ end }}
+    </div>
+  {{ end }}
+</section>

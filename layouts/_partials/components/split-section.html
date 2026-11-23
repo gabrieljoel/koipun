@@ -1,0 +1,54 @@
+{{/*
+  Two-column text + image section. Stacks on phones (image first when `reverse`).
+  Params:
+    page      the page (for image lookup)
+    heading   string
+    eyebrow   string (optional)
+    body      markdown string
+    image     page resource or assets path
+    imageAlt  string
+    imageAnchor  crop anchor when the image is cropped (Smart default; e.g. Center)
+    imageCaption handwritten label taped onto a "photo" (optional)
+    shape     "rounded" (default) | "photo" (a snapshot taped into the notebook: portrait,
+              tilted, with imageCaption; use for people) | "circle" (small avatars only)
+    imageSize "large" (default) | "small" (small circle/portrait beside the text)
+    reverse   bool — image on the left on desktop
+    ctas      slice of button params ({href, text, variant})
+    id        anchor id (optional)
+*/}}
+{{- $img := or (.page.Resources.Get .image) (resources.Get .image) -}}
+{{- $circle := eq .shape "circle" -}}
+{{- $small := eq .imageSize "small" -}}
+<section {{ with .id }}id="{{ . }}" {{ end }}class="container-page scroll-mt-24 py-16 sm:py-20">
+  <div class="grid items-center gap-12 {{ if not $img }}mx-auto max-w-3xl{{ else if $small }}md:grid-cols-[12rem_1fr]{{ else }}md:grid-cols-2{{ end }} md:gap-16">
+    <div class="{{ if .reverse }}md:order-2{{ end }}">
+      {{ with .eyebrow }}<p class="mb-4 inline-block origin-left -rotate-2 font-hand text-2xl font-semibold text-pen">{{ . }}</p>{{ end }}
+      {{ with .heading }}<h2 class="mb-6 text-3xl font-black tracking-tight sm:text-4xl">{{ . }}</h2>{{ end }}
+      <div class="space-y-4 text-lg/8 text-pretty text-muted [&_a]:link-pen [&_strong]:text-fg [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-6 [&_ul]:marker:text-pen-mark">
+        {{ .body | markdownify }}
+      </div>
+      {{ with .ctas }}
+        <div class="mt-8 flex flex-wrap items-center gap-3">
+          {{ range . }}{{ partial "components/button.html" . }}{{ end }}
+        </div>
+      {{ end }}
+    </div>
+    {{ with $img }}
+      {{- $photo := eq $.shape "photo" -}}
+      <figure class="{{ if $.reverse }}md:order-1{{ end }} {{ if $small }}mx-auto w-40 md:w-full{{ else if $circle }}mx-auto w-full max-w-64 sm:max-w-sm{{ else if $photo }}relative mx-auto mb-6 w-full max-w-72 sm:max-w-sm{{ end }}">
+        {{ partial "components/picture.html" (dict
+          "image" . "alt" $.imageAlt
+          "ratio" (cond $circle "1x1" "") "anchor" $.imageAnchor
+          "widths" (slice 400 640 900)
+          "sizes" (cond $small "(min-width: 768px) 192px, 160px" (cond (or $circle $photo) "(min-width: 640px) 384px, 288px" "(min-width: 1152px) 544px, (min-width: 768px) 45vw, calc(100vw - 2rem)"))
+          "class" (cond $circle "aspect-square w-full rounded-full border-2 border-line object-cover"
+                   (cond $photo "w-full rotate-2 rounded-md border-2 border-line shadow-paper-lg"
+                   "w-full rounded-md border-2 border-line object-cover shadow-paper-lg"))
+        ) }}
+        {{ with $.imageCaption }}
+          <figcaption class="absolute -bottom-5 -left-3 -rotate-3 card px-4 py-1 font-hand text-xl font-semibold text-fg sm:-left-6 sm:text-2xl">{{ . }}</figcaption>
+        {{ end }}
+      </figure>
+    {{ end }}
+  </div>
+</section>

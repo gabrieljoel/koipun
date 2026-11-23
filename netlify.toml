@@ -1,0 +1,80 @@
+# koipun.com on Netlify: Hugo + Tailwind CSS v4, no client-side JavaScript.
+# Redirects are NOT here: they're generated into public/_redirects by layouts/home.redirects
+# (from data/redirects.yaml), so legacy URLs, .html twins and page/1/ stay in sync with the content.
+
+[build]
+  publish = "public"
+  command = "bash scripts/build.sh"   # build + every gate; see the script header
+
+[build.environment]
+  HUGO_VERSION = "0.170.1"            # keep in sync with hugo.toml [module.hugoVersion] min
+  NODE_VERSION = "24"                 # Tailwind CLI (package.json engines: >=22)
+  TZ = "UTC"
+
+# Deploy previews and branch deploys get the same command; scripts/build.sh reads $CONTEXT
+# and builds them as noindex "preview" sites on their own URL.
+
+# ---------------------------------------------------------------- Security headers (every response)
+# The site ships no JavaScript, so the CSP allows none. Inline styles: the font @font-face block and
+# the brand-pattern background. Frames: YouTube (privacy-enhanced) and SoundCloud embeds in old posts.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Cross-Origin-Opener-Policy = "same-origin"
+    Permissions-Policy = "accelerometer=(), browsing-topics=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+    Content-Security-Policy = """\
+      default-src 'none'; \
+      img-src 'self' data:; \
+      style-src 'self' 'unsafe-inline'; \
+      font-src 'self'; \
+      manifest-src 'self'; \
+      frame-src https://www.youtube-nocookie.com https://w.soundcloud.com; \
+      base-uri 'none'; \
+      form-action 'none'; \
+      frame-ancestors 'none'; \
+      upgrade-insecure-requests\
+      """
+
+# ---------------------------------------------------------------- Caching
+# Fingerprinted by Hugo (a changed file gets a new URL): cache for a year.
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*_hu_*"                     # processed images: name contains a content hash
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Everything else (HTML, feeds, original images such as /static/imgs/*) keeps Netlify's default:
+# cached at the edge, revalidated by ETag on every visit, so a replaced file shows up immediately.
+# Keep rules non-overlapping: when two rules set the same header the result is ambiguous.
+
+# ---------------------------------------------------------------- AI-agent files
+# Markdown twins (<page>/index.md) and llms.txt: readable by agents, kept out of search results
+# (the HTML page is the canonical copy).
+[[headers]]
+  for = "/*.md"
+  [headers.values]
+    Content-Type = "text/markdown; charset=utf-8"
+    X-Robots-Tag = "noindex"
+
+[[headers]]
+  for = "/llms.txt"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"
+    X-Robots-Tag = "noindex"
+
+[[headers]]
+  for = "/styleguide/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"

@@ -1,0 +1,16 @@
+{{/* Taxonomy index (e.g. /blog/category/): list of terms with counts. */}}
+{{ define "main" }}
+<div class="container-page py-16">
+  {{ partial "components/page-header.html" . }}
+  <ul class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    {{- range .Pages.ByTitle }}
+      <li>
+        <a href="{{ .RelPermalink }}" class="flex lift items-baseline justify-between gap-4 card p-5">
+          <span class="font-semibold text-fg">{{ .LinkTitle }}</span>
+          <span class="font-hand text-xl font-semibold text-pen">{{ len .Pages }} posts</span>
+        </a>
+      </li>
+    {{- end }}
+  </ul>
+</div>
+{{ end }}

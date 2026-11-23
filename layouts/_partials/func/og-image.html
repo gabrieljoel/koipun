@@ -1,0 +1,46 @@
+{{/*
+  Branded 1200×630 social card (Open Graph / X), generated at build time.
+  Page photo (featured image, else the site hero) → shading → logo + domain → title → brand bar.
+  Returns: resource.Resource (JPEG), or nil if no source image exists.
+*/}}
+{{- /* Front matter `ogImage` (a hand-made landscape crop) wins over the featured image */ -}}
+{{- $own := "" }}{{ with .Params.ogImage }}{{ $own = or ($.Resources.Get .) (resources.Get .) }}{{ end -}}
+{{- $src := or $own (partial "func/featured-image.html" .) (resources.Get site.Params.socialImage) -}}
+{{- $card := "" -}}
+{{- with $src -}}
+  {{- $title := or $.Params.ogTitle $.Params.seoTitle $.Title -}}
+  {{- if $.IsHome }}{{ $title = site.Params.tagline }}{{ end -}}
+  {{- $len := len $title -}}
+  {{- $size := cond (le $len 40) 76 (cond (le $len 70) 62 52) -}}
+  {{- /* Wrap manually so the title keeps the same 64px margin on the right as on the left
+         (images.Text would only wrap at the image edge). Zen Kaku Gothic New Black ≈ 0.6em/char. */ -}}
+  {{- $maxChars := int (div (sub 1200 128) (mul $size 0.6)) -}}
+  {{- $lines := slice }}{{ $line := "" -}}
+  {{- range split $title " " -}}
+    {{- if and $line (gt (add (len $line) (len .) 1) $maxChars) }}{{ $lines = $lines | append $line }}{{ $line = . }}{{ else }}{{ $line = trim (printf "%s %s" $line .) " " }}{{ end -}}
+  {{- end -}}
+  {{- /* Orphan control: never leave a very short word alone on the last line */ -}}
+  {{- if and $lines (lt (len $line) 8) -}}
+    {{- $prev := split (index $lines (sub (len $lines) 1)) " " -}}
+    {{- if gt (len $prev) 1 -}}
+      {{- $line = printf "%s %s" (index $prev (sub (len $prev) 1)) $line -}}
+      {{- $lines = (first (sub (len $lines) 1) $lines) | append (delimit (first (sub (len $prev) 1) $prev) " ") -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $title = delimit ($lines | append $line) "\n" -}}
+  {{- $bold := resources.Get "fonts/ZenKakuGothicNew-Black.ttf" -}}
+  {{- $semi := resources.Get "fonts/Inter-SemiBold.ttf" -}}
+  {{- $logo := (resources.Get site.Params.organization.logo).Resize "64x png" -}}
+  {{- $host := urls.Parse site.BaseURL | default dict -}}
+  {{- $domain := strings.TrimPrefix "www." $host.Host -}}
+  {{- $filters := slice
+    (images.Overlay (resources.Get "images/og-shade.png") 0 0)
+    (images.Overlay (resources.Get "images/og-top.png") 0 0)
+    (images.Overlay $logo 64 52)
+    (images.Text $domain (dict "font" $semi "size" 30 "x" 146 "y" 62 "color" "#ffffff"))
+    (images.Text $title (dict "font" $bold "size" $size "linespacing" (div $size 6) "x" 64 "y" 560 "aligny" "bottom" "color" "#ffffff"))
+  -}}
+  {{- $card = .Process "fill 1200x630 Smart" | images.Filter $filters -}}
+  {{- $card = $card.Process "jpg q85" -}}
+{{- end -}}
+{{- return $card -}}

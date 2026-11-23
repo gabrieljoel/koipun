@@ -1,0 +1,17 @@
+{{/*
+  Link styled as a button. Params: href, text, variant, size ("md" | "lg")
+    primary    filled koi red with a pressed-ink edge
+    secondary  ink-outlined sheet of paper
+    link       red-pen underlined text (a quiet second action)
+  Colors come from the semantic tokens, so every variant also works on the brand theme.
+*/}}
+{{- $variants := dict
+  "primary" "bg-btn text-btn-fg shadow-press hover:bg-btn-hover active:translate-y-0.5 active:shadow-none"
+  "secondary" "border-2 border-line bg-raised text-fg hover:bg-tint active:translate-y-0.5"
+  "link" "text-fg underline decoration-pen-mark decoration-2 underline-offset-6 hover:text-pen"
+-}}
+{{- $sizes := dict "md" "min-h-12 px-6 text-base" "lg" "min-h-14 px-8 text-lg" -}}
+{{- $variant := .variant | default "primary" -}}
+<a href="{{ .href }}"{{ if strings.HasPrefix .href "http" }} rel="noopener"{{ end }} class="inline-flex items-center justify-center gap-2 rounded-lg font-semibold transition {{ index $sizes (.size | default "md") }} {{ index $variants $variant }}{{ if eq $variant "link" }} px-2{{ end }}">
+  {{- .text -}}
+</a>

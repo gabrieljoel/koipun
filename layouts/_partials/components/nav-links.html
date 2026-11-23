@@ -1,0 +1,12 @@
+{{/*
+  Renders a menu as <li><a> items. Used by desktop nav, mobile nav, and footer.
+  Params: page (current page), menu (menu entries), class (classes for <a>; style the
+  active link with aria-[current=page]: variants)
+*/}}
+{{- $page := .page -}}
+{{- range .menu }}
+  {{- $active := and $page (or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .)) }}
+  <li>
+    <a href="{{ .URL }}"{{ if $active }} aria-current="page"{{ end }}{{ with .Params.rel }} rel="{{ . }}"{{ end }} class="{{ $.class }}">{{ .Name }}</a>
+  </li>
+{{- end }}

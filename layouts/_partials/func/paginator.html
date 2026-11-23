@@ -1,0 +1,10 @@
+{{/*
+  Single source of truth for list pagination. Returns the paginator for
+  sections and taxonomy terms, nil elsewhere. Hugo caches it per page, so
+  calling this from both <head> and the list template is free.
+*/}}
+{{- $pager := "" -}}
+{{- if in (slice "section" "term") .Kind -}}
+  {{- $pager = .Paginate .RegularPagesRecursive.ByPublishDate.Reverse -}}
+{{- end -}}
+{{- return $pager -}}

@@ -1,0 +1,192 @@
+baseURL = "https://www.koipun.com/"
+locale = "en-US"
+title = "Koipun"
+copyright = "Gabriel J. Pérez Irizarry"
+enableRobotsTXT = true
+removePathAccents = true
+enableGitInfo = false            # flip to true once content history lives in git (drives lastmod)
+timeZone = "UTC"
+disableAliases = true          # renamed pages and page/1/ get real 301s in _redirects (layouts/home.redirects)
+summaryLength = 40
+disableKinds = []
+
+[module]
+  [module.hugoVersion]
+    min = "0.165.0"
+    extended = false
+  [[module.mounts]]
+    source = "assets"
+    target = "assets"
+  [[module.mounts]]
+    disableWatch = true
+    source = "hugo_stats.json"
+    target = "assets/notwatching/hugo_stats.json"
+
+# ---------------------------------------------------------------- URLs
+# Keep every legacy URL identical so existing rankings/backlinks survive.
+[permalinks]
+  [permalinks.page]
+    blog = "/blog/:contentbasename/"
+  [permalinks.term]
+    categories = "/blog/category/:contentbasename/"
+    authors = "/blog/author/:contentbasename/"
+    tags = "/blog/tag/:contentbasename/"
+  [permalinks.taxonomy]
+    categories = "/blog/category/"
+    authors = "/blog/author/"
+    tags = "/blog/tag/"
+
+[taxonomies]
+  category = "categories"
+  author = "authors"
+  tag = "tags"
+
+[pagination]
+  pagerSize = 9
+  path = "page"                  # → /blog/page/2/ (matches old site)
+  disableAliases = true          # page/1/ is a real 301 in _redirects, not a meta-refresh page
+
+# ---------------------------------------------------------------- Outputs
+# "markdown" = clean .md twin of every page for AI agents / answer engines (AEO).
+[outputFormats]
+  [outputFormats.markdown]
+    mediaType = "text/markdown"
+    baseName = "index"
+    isPlainText = true
+    rel = "alternate"
+    permalinkable = true
+  [outputFormats.redirects]      # Netlify _redirects
+    mediaType = "text/netlify"
+    baseName = "_redirects"
+    isPlainText = true
+    notAlternative = true
+    root = true
+  [outputFormats.llms]
+    mediaType = "text/plain"
+    baseName = "llms"
+    isPlainText = true
+    root = true
+    notAlternative = true
+
+[mediaTypes]
+  [mediaTypes."text/markdown"]
+    suffixes = ["md"]
+  [mediaTypes."text/netlify"]
+    delimiter = ""
+
+[outputs]
+  home = ["html", "rss", "llms", "redirects"]
+  section = ["html", "rss"]
+  page = ["html", "markdown"]
+  taxonomy = ["html"]
+  term = ["html", "rss"]
+
+[services.rss]
+  limit = -1                     # full archive in feeds
+
+[sitemap]
+  changeFreq = ""
+  priority = -1
+  filename = "sitemap.xml"
+
+# ---------------------------------------------------------------- Markup
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true                # posts use inline HTML (<ruby> furigana, embeds)
+  [markup.goldmark.parser]
+    wrapStandAloneImageWithinParagraph = false   # lets render-image emit <figure>
+  [markup.goldmark.parser.attribute]
+    block = true
+  [markup.goldmark.renderHooks.image]
+    useEmbedded = "never"        # we ship our own responsive <picture> hook
+  [markup.highlight]
+    noClasses = false
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+
+# No YouTube cookies until a visitor presses play (matches the privacy page)
+[privacy.youtube]
+  privacyEnhanced = true
+
+[imaging]
+  resampleFilter = "Lanczos"
+  anchor = "Smart"
+  # Encoder effort barely changes size here (benchmarked 2026-11-23: AVIF 6.0 MB at speed 10/6/4),
+  # so keep AVIF at its fast default. Sharp YUV keeps screenshot text crisp in WebP (+~7 s build).
+  [imaging.webp]
+    method = 4
+    useSharpYuv = true
+  [imaging.exif]
+    disableDate = true
+    disableLatLong = true        # strip GPS from published images
+
+# ---------------------------------------------------------------- Build
+[build]
+  [build.buildStats]
+    enable = true
+  [[build.cachebusters]]
+    source = "assets/notwatching/hugo_stats\\.json"
+    target = "css"
+  [[build.cachebusters]]
+    source = "(postcss|tailwind)\\.config\\.js"
+    target = "css"
+
+[security.exec]
+  allow = ['^(dart-)?sass$', '^go$', '^git$', '^node$', '^postcss$', '^tailwindcss$']
+
+[minify.tdewolff.html]
+  keepWhitespace = false
+
+# ---------------------------------------------------------------- Menus
+[[menus.main]]
+  name = "How to Learn Japanese"
+  pageRef = "/how-to-learn-japanese"
+  weight = 10
+[[menus.main]]
+  name = "Blog"
+  pageRef = "/blog"
+  weight = 20
+[[menus.main]]
+  name = "Anki Flashcards"
+  pageRef = "/anki"
+  weight = 30
+
+[[menus.footer]]
+  name = "About"
+  pageRef = "/about"
+  weight = 10
+[[menus.footer]]
+  name = "Help"
+  pageRef = "/help"
+  weight = 20
+[[menus.footer]]
+  name = "Privacy and Terms"
+  pageRef = "/privacy-and-terms"
+  weight = 30
+[[menus.footer]]
+  name = "RSS"
+  url = "/blog/index.xml"
+  weight = 40
+
+# ---------------------------------------------------------------- Params
+[params]
+  description = "Learn how to learn Japanese from people who did it. Interviews with successful learners, study methods, and free Anki grammar decks."
+  tagline = "Learn how to learn Japanese"
+  themeColor = "#D9230F"
+  socialImage = "images/hero/izakaya.jpg"   # background for social cards of pages without a featured image (assets/)
+  [params.author]
+    name = "Gabriel J. Pérez Irizarry"
+    url = "/about/"
+    # Same person across his sites: helps search engines connect Koipun with gabezen.com
+    sameAs = [
+      "https://gabezen.com/bio/",
+      "https://www.linkedin.com/in/gabrieljperezirizarry/",
+      "https://x.com/gabezen",
+    ]
+  [params.organization]
+    name = "Koipun"
+    logo = "images/logo.png"               # in assets/
+    sameAs = ["https://twitter.com/koipunchan"]
+  [params.social]
+    twitter = "koipunchan"

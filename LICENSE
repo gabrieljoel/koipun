@@ -1,0 +1,40 @@
+This repository holds two kinds of material under different terms.
+
+1. CODE: MIT License
+   Everything except the content listed in section 2: templates (layouts/), styles (assets/css/),
+   icons drawn for this site, scripts (scripts/), configuration and documentation (README.md,
+   BRAND.md, CONTRIBUTING.md).
+
+   Copyright (c) 2015-2026 Gabriel J. Pérez Irizarry
+
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+   and associated documentation files (the "Software"), to deal in the Software without
+   restriction, including without limitation the rights to use, copy, modify, merge, publish,
+   distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
+   Software is furnished to do so, subject to the following conditions:
+
+   The above copyright notice and this permission notice shall be included in all copies or
+   substantial portions of the Software.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+2. CONTENT: All rights reserved
+   The writing, interviews, photos and other images in content/, static/ and assets/images/,
+   and the Koipun name and logo.
+
+   Copyright (c) 2015-2026 Gabriel J. Pérez Irizarry, except where noted. The interviews are the
+   words of the people interviewed, published on Koipun with their permission. Some images belong
+   to their original creators (book and manga covers, screenshots, stock photos) and appear here
+   for commentary and review. You may read and link to all of it, but you may not republish it
+   without permission. To ask, open an issue.
+
+3. THIRD-PARTY MATERIAL under its own license
+   - Fonts in assets/fonts/ (Inter, Zen Kaku Gothic New, Caveat): SIL Open Font License 1.1,
+     see assets/fonts/OFL.txt.
+   - AI-assistant logos in assets/icons/logo-*.svg: Simple Icons, CC0 1.0. The marks themselves
+     remain trademarks of their owners.
+   - UI icons in assets/icons/: Heroicons, MIT License, Copyright (c) Tailwind Labs, Inc.

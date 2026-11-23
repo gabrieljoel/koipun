@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="{{ site.Language.Locale | default "en" }}" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {{ partial "head/seo.html" . }}
+  {{ partialCached "head/fonts.html" . }}
+  {{ with (templates.Defer (dict "key" "global")) }}
+    {{ partial "head/css.html" . }}
+  {{ end }}
+  {{ partial "head/icons.html" . }}
+  {{- with .OutputFormats.Get "markdown" }}
+  <link rel="alternate" type="text/markdown" href="{{ .Permalink }}" title="{{ $.Title }} (Markdown)">
+  {{- end }}
+</head>
+<body class="flex min-h-dvh flex-col">
+  <a href="#main" class="sr-only card px-4 py-2 font-semibold text-fg focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50">Skip to content</a>
+  {{ partial "header.html" . }}
+  <main id="main" class="flex-1">
+    {{ block "main" . }}{{ end }}
+  </main>
+  {{ partial "footer.html" . }}
+</body>
+</html>

@@ -1,0 +1,19 @@
+{{- /*
+  Internal links: resolve page refs (incl. "foo.md") to permalinks, warn on broken ones.
+  External links: open safely.
+*/ -}}
+{{- $u := urls.Parse .Destination -}}
+{{- $href := .Destination -}}
+{{- $external := and $u.IsAbs (not (strings.HasPrefix $u.String site.BaseURL)) -}}
+{{- if and (not $u.IsAbs) $u.Path (not (strings.HasPrefix $u.Path "#")) -}}
+  {{- with or (.PageInner.GetPage $u.Path) (site.GetPage $u.Path) -}}
+    {{- $href = .RelPermalink -}}
+    {{- with $u.Fragment }}{{ $href = printf "%s#%s" $href . }}{{ end -}}
+  {{- else -}}
+    {{- with or (.PageInner.Resources.Get $u.Path) (resources.Get $u.Path) }}{{ $href = .RelPermalink }}{{ end -}}
+  {{- end -}}
+{{- end -}}
+<a href="{{ $href }}"
+  {{- with .Title }} title="{{ . }}"{{ end }}
+  {{- if $external }} rel="noopener"{{ end }}>{{ .Text }}</a>
+{{- /* chomp */ -}}

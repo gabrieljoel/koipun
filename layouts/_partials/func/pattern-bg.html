@@ -1,0 +1,15 @@
+{{/*
+  Returns a `background-image: …` declaration for a page's `pattern` front matter
+  (an assets/ path), or "" if none. SVG is served as-is (vector, crisp at any DPR);
+  raster patterns get AVIF with a JPEG fallback.
+*/}}
+{{- $css := "" -}}
+{{- with .Params.pattern }}{{ with resources.Get . -}}
+  {{- if eq .MediaType.SubType "svg" -}}
+    {{- $css = printf `background-image: url("%s")` (. | minify | fingerprint).RelPermalink -}}
+  {{- else -}}
+    {{- $css = printf `background-image: image-set(url("%s") type("image/avif"), url("%s") type("image/jpeg"))`
+      (.Process "avif q55").RelPermalink (.Process "jpg q70").RelPermalink -}}
+  {{- end -}}
+{{- end }}{{ end -}}
+{{- return $css -}}

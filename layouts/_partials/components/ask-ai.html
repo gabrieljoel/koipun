@@ -1,0 +1,24 @@
+{{/*
+  "Ask your AI": a handwritten label and a row of paper keys, each opening ChatGPT, Claude, Perplexity or
+  Google AI Mode in a new tab with a question already typed in (data/ask_ai.yaml).
+  Plain links: no JavaScript, nothing is sent until the visitor clicks.
+
+  Params (dict):
+    label     string   handwritten label before the keys
+    question  string   the question (URL-encoded here)
+    class     string   extra classes for the wrapper (layout only)
+*/}}
+{{- $q := replace (.question | urlquery) "+" "%20" -}}
+<div class="flex flex-wrap items-center gap-x-4 gap-y-3 {{ .class }}">
+  {{ with .label }}<p class="font-hand text-xl font-semibold text-pen">{{ . }}</p>{{ end }}
+  <ul class="flex flex-wrap gap-2">
+    {{- range hugo.Data.ask_ai.ais }}
+      <li>
+        <a href="{{ .url }}{{ $q }}" target="_blank" rel="noopener" class="inline-flex min-h-11 lift items-center gap-2 card px-3 text-sm font-semibold text-fg">
+          {{- partial "components/icon.html" (dict "name" .icon "class" "size-4 shrink-0") -}}
+          {{ .name }}<span class="sr-only"> (opens in a new tab)</span>
+        </a>
+      </li>
+    {{- end }}
+  </ul>
+</div>

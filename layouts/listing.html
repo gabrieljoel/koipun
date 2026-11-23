@@ -1,0 +1,15 @@
+{{/*
+  Curated landing page listing one category's posts.
+  Front matter: layout: listing, listCategory: <category term key>
+*/}}
+{{ define "main" }}
+<div class="container-page py-16">
+  {{ partial "components/page-header.html" . }}
+  {{ if .Content }}
+    <div class="mb-12 max-w-3xl">{{ with partial "components/prose.html" . }}{{ .Content }}{{ end }}</div>
+  {{ end }}
+  {{ with site.GetPage (printf "/categories/%s" .Params.listCategory) }}
+    {{ partial "components/post-grid.html" (dict "pages" .Pages.ByPublishDate.Reverse "eagerCount" 3) }}
+  {{ end }}
+</div>
+{{ end }}

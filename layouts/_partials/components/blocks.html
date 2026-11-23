@@ -1,0 +1,27 @@
+{{/*
+  Renders a page's `blocks` front matter (landing-page building blocks).
+  Context: page. Each block has a `type`:
+    header     → centered page title block   (heading, subheading)
+    statement  → big centered line of text    (body, ctas, id)
+    split      → text + image, two columns     (see split-section.html) — the default
+*/}}
+{{- range .Params.blocks -}}
+  {{- $b := merge . (dict "page" $) -}}
+  {{- $type := .type | default "split" -}}
+  {{- if eq $type "header" -}}
+    {{- /* With a page `theme`, the title sits on a framed panel in that theme (e.g. the koi-red pattern) */ -}}
+    {{- $theme := $.Params.theme -}}
+    <header class="container-page {{ if $theme }}pt-10 sm:pt-14{{ else }}pt-16 sm:pt-24{{ end }}">
+      <div class="{{ if $theme }}card overflow-hidden shadow-paper-lg{{ end }}">
+        <div class="{{ with $theme }}theme-{{ . }} px-6 py-16 bg-size-[600px_auto] sm:py-24 sm:bg-size-[875px_auto]{{ end }} text-center"{{ with partial "func/pattern-bg.html" $ }} style="{{ . | safeCSS }}"{{ end }}>
+          <h1 class="mx-auto max-w-4xl text-4xl font-black tracking-tight sm:text-6xl">{{ .heading }}</h1>
+          {{ with .subheading }}<p class="mx-auto mt-5 max-w-3xl font-hand text-2xl font-semibold text-pretty text-pen sm:text-3xl">{{ . }}</p>{{ end }}
+        </div>
+      </div>
+    </header>
+  {{- else if eq $type "statement" -}}
+    {{ partial "components/statement.html" $b }}
+  {{- else -}}
+    {{ partial "components/split-section.html" $b }}
+  {{- end -}}
+{{- end -}}

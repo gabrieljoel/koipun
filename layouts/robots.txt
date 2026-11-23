@@ -1,0 +1,13 @@
+{{- if hugo.IsProduction -}}
+# Search engines and AI answer engines are welcome.
+# Content-Signal: https://contentsignals.org
+User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+Allow: /
+
+{{- else -}}
+User-agent: *
+Disallow: /
+{{- end }}
+
+Sitemap: {{ "sitemap.xml" | absURL }}

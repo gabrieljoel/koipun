@@ -1,0 +1,32 @@
+{{- /* Full-content RSS 2.0 (embedded template only ships summaries). */ -}}
+{{- $pages := cond .IsHome site.RegularPages .RegularPagesRecursive -}}
+{{- $pages = $pages.ByPublishDate.Reverse -}}
+{{- with site.Config.Services.RSS.Limit }}{{ if ge . 1 }}{{ $pages = first . $pages }}{{ end }}{{ end -}}
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} | {{ site.Title }}{{ end }}</title>
+    <link>{{ .Permalink }}</link>
+    <description>{{ or .Description site.Params.description }}</description>
+    <language>{{ site.Language.Locale | default "en-US" }}</language>
+    <copyright>&#169; {{ now.Year }} {{ site.Copyright }}</copyright>
+    {{- with $pages }}<lastBuildDate>{{ (index . 0).Lastmod.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</lastBuildDate>{{ end }}
+    {{- with .OutputFormats.Get "rss" }}
+    <atom:link href="{{ .Permalink }}" rel="self" type="{{ .MediaType.Type }}"/>
+    {{- end }}
+    {{- range $pages }}
+    <item>
+      <title>{{ .Title }}</title>
+      <link>{{ .Permalink }}</link>
+      <guid isPermaLink="true">{{ .Permalink }}</guid>
+      <pubDate>{{ .PublishDate.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</pubDate>
+      {{- with .GetTerms "authors" }}<dc:creator>{{ (index . 0).LinkTitle }}</dc:creator>{{ end }}
+      {{- range .GetTerms "categories" }}<category>{{ .LinkTitle }}</category>{{ end }}
+      <description>{{ or .Description .Summary | plainify }}</description>
+      {{- $abs := strings.TrimSuffix "/" site.BaseURL }}
+      {{- $html := .Content | replaceRE `(src|href|srcset)="/` (printf `$1="%s/` $abs) | replaceRE `, /` (printf `, %s/` $abs) }}
+      <content:encoded>{{ printf "<![CDATA[%s]]>" $html | safeHTML }}</content:encoded>
+    </item>
+    {{- end }}
+  </channel>
+</rss>

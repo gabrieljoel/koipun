@@ -1,0 +1,20 @@
+{{- /*
+  Furigana.
+    {{< ruby "先生" "せんせい" >}}      → reading over the whole word
+    {{< ruby "先生" "せん|せい" >}}     → per-character readings (count must match characters)
+  Emits native <ruby lang="ja"> with <rp> fallbacks for non-ruby renderers.
+*/ -}}
+{{- $base := .Get 0 -}}
+{{- $reading := .Get 1 -}}
+{{- if not (and $base $reading) }}{{ errorf "ruby shortcode needs base and reading: %s" .Position }}{{ end -}}
+{{- $parts := split $reading "|" -}}
+{{- $chars := split $base "" -}}
+<ruby lang="ja">
+  {{- if and (gt (len $parts) 1) (eq (len $parts) (len $chars)) -}}
+    {{- range $i, $c := $chars }}{{ $c }}<rp>(</rp><rt>{{ index $parts $i }}</rt><rp>)</rp>{{ end -}}
+  {{- else -}}
+    {{- if gt (len $parts) 1 }}{{ warnf "ruby: %d readings for %d characters in %q, using whole-word reading: %s" (len $parts) (len $chars) $base .Position }}{{ end -}}
+    {{ $base }}<rp>(</rp><rt>{{ delimit $parts "" }}</rt><rp>)</rp>
+  {{- end -}}
+</ruby>
+{{- /* chomp */ -}}

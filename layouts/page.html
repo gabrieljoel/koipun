@@ -1,0 +1,9 @@
+{{/* Standalone pages (About, Help, Privacy…). Text sits on a clean paper panel. */}}
+{{ define "main" }}
+<article class="container-page py-16">
+  {{ partial "components/page-header.html" . }}
+  <div class="max-w-3xl rounded-md bg-surface py-2 sm:-mx-6 sm:px-6">
+    {{ with partial "components/prose.html" . }}{{ .Content }}{{ end }}
+  </div>
+</article>
+{{ end }}

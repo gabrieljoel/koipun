@@ -1,0 +1,28 @@
+{{- $link := "rounded-md px-3 py-2 font-medium text-fg underline-offset-8 transition-colors hover:text-pen aria-[current=page]:underline aria-[current=page]:decoration-pen-mark aria-[current=page]:decoration-3" -}}
+<header class="sticky top-0 z-40 border-b-2 border-line bg-raised/95 backdrop-blur">
+  <nav class="container-page flex h-16 items-center justify-between gap-6 sm:h-18" aria-label="Main">
+    <a href="{{ site.Home.RelPermalink }}" class="flex items-center gap-3 font-display text-xl font-black text-fg">
+      {{- with resources.Get site.Params.organization.logo }}
+        {{- with .Resize "x88 webp" }}
+          <img src="{{ .RelPermalink }}" width="44" height="44" alt="" class="size-9 sm:size-11">
+        {{- end }}
+      {{- end }}
+      {{ site.Title }}
+    </a>
+
+    <ul class="hidden items-center gap-2 md:flex">
+      {{ partial "components/nav-links.html" (dict "page" . "menu" site.Menus.main "class" $link) }}
+    </ul>
+
+    <details class="group relative md:hidden">
+      <summary class="flex size-11 cursor-pointer list-none items-center justify-center card text-fg [&::-webkit-details-marker]:hidden">
+        <span class="sr-only">Menu</span>
+        {{ partial "components/icon.html" (dict "name" "menu" "class" "size-6 group-open:hidden") }}
+        {{ partial "components/icon.html" (dict "name" "close" "class" "hidden size-6 group-open:block") }}
+      </summary>
+      <ul class="absolute right-0 mt-3 w-64 card p-2 shadow-paper">
+        {{ partial "components/nav-links.html" (dict "page" . "menu" site.Menus.main "class" (printf "block %s" $link)) }}
+      </ul>
+    </details>
+  </nav>
+</header>

@@ -1,0 +1,18 @@
+<footer class="mt-16 border-t-2 border-line bg-raised">
+  {{ with hugo.Data.ask_ai.site }}
+    <div class="container-page border-b border-hairline py-8">
+      {{ partial "components/ask-ai.html" (dict "label" .label "question" .question) }}
+    </div>
+  {{ end }}
+  <div class="container-page flex flex-col gap-6 py-10 text-sm text-subtle sm:flex-row sm:items-center sm:justify-between">
+    <p>&copy; {{ now.Year }} {{ with site.Params.author.url }}<a href="{{ . }}" rel="author" class="link-pen font-normal">{{ site.Copyright }}</a>{{ else }}{{ site.Copyright }}{{ end }}</p>
+    <nav aria-label="Footer">
+      <ul class="flex flex-wrap gap-x-6 gap-y-1">
+        {{ partial "components/nav-links.html" (dict
+          "page" . "menu" site.Menus.footer
+          "class" "inline-block py-2 text-muted transition-colors hover:text-pen aria-[current=page]:text-pen"
+        ) }}
+      </ul>
+    </nav>
+  </div>
+</footer>

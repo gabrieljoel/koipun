@@ -1,0 +1,132 @@
+{{/*
+  Living style guide (/styleguide/, noindex). Colors are parsed straight from
+  assets/css/main.css, so this page can't drift from the real tokens.
+  The written guide is BRAND.md.
+*/}}
+{{ define "main" }}
+{{- $css := (resources.Get "css/main.css").Content -}}
+{{- $label := "mb-4 font-hand text-2xl font-semibold text-pen" -}}
+{{- $h2 := "mb-2 text-3xl font-black tracking-tight" -}}
+
+<div class="container-page py-16">
+  {{ partial "components/page-header.html" . }}
+  <p class="-mt-6 mb-16 max-w-3xl text-muted">The written rules (when to use what, contrast, voice) are in <code>BRAND.md</code>. Everything below is generated from <code>assets/css/main.css</code> and the real components.</p>
+
+  {{/* ---------- Primitives ---------- */}}
+  <section class="mb-20" aria-labelledby="primitives">
+    <h2 id="primitives" class="{{ $h2 }}">Primitives</h2>
+    <p class="mb-8 text-muted">The only colors that exist (Tailwind's default palette is removed). Use these through roles, not directly.</p>
+    {{- range $scale := slice "koi" "sumi" }}
+      {{- $swatches := findRESubmatch (printf `--color-%s-(\d+):[ \t]*(#[0-9a-fA-F]{3,8});(?:[ \t]*/\*[ \t]*(.*?)[ \t]*\*/)?` $scale) $css -}}
+      <p class="{{ $label }}">{{ $scale }}</p>
+      <ul class="mb-10 grid grid-cols-3 gap-3 sm:grid-cols-6 lg:grid-cols-7">
+        {{- range $swatches }}
+          {{- $step := index . 1 }}{{ $hex := index . 2 }}{{ $note := index . 3 }}
+          <li class="flex flex-col gap-2">
+            <span class="block h-16 rounded-md border-2 border-line" style="background: var(--color-{{ $scale }}-{{ $step }})"></span>
+            <span class="text-sm/snug"><b class="text-fg">{{ $scale }}-{{ $step }}</b><br><code class="text-subtle">{{ upper $hex }}</code>{{ with $note }}<br><span class="text-subtle">{{ . }}</span>{{ end }}</span>
+          </li>
+        {{- end }}
+      </ul>
+    {{- end }}
+  </section>
+
+  {{/* ---------- Roles, in all three themes ---------- */}}
+  {{- $roles := findRESubmatch `--color-([a-z-]+):[ \t]*var\(--([a-z-]+)\);(?:[ \t]*/\*[ \t]*(.*?)[ \t]*\*/)?` $css -}}
+  <section class="mb-20" aria-labelledby="roles">
+    <h2 id="roles" class="{{ $h2 }}">Semantic roles</h2>
+    <p class="mb-8 text-muted">What templates use (<code>text-fg</code>, <code>border-line</code>, <code>bg-raised</code>…). Each theme decides what a role is. The same markup, three themes:</p>
+    <div class="grid gap-6 lg:grid-cols-3">
+      {{- range $t := slice (dict "class" "theme-paper" "name" "Paper (default)") (dict "class" "theme-night" "name" "Night study (dark mode)") (dict "class" "theme-brand" "name" "Brand (.theme-brand)") }}
+      <div class="{{ $t.class }} card overflow-hidden bg-surface">
+        <p class="border-b-2 border-line bg-raised px-5 py-3 font-semibold text-fg">{{ $t.name }}</p>
+        <ul class="divide-y divide-hairline">
+          {{- range $roles }}
+            {{- $name := index . 1 }}
+            <li class="flex items-center gap-3 px-5 py-2.5">
+              <span class="size-8 shrink-0 rounded-sm border border-hairline" style="background: var(--{{ index . 2 }})"></span>
+              <span class="min-w-0 text-sm/snug"><b class="text-fg">{{ $name }}</b>{{ with index . 3 }}<br><span class="text-subtle">{{ . }}</span>{{ end }}</span>
+            </li>
+          {{- end }}
+        </ul>
+        <div class="flex flex-wrap items-center gap-3 border-t-2 border-line px-5 py-5">
+          {{ partial "components/button.html" (dict "href" "#roles" "text" "Primary") }}
+          {{ partial "components/button.html" (dict "href" "#roles" "text" "Secondary" "variant" "secondary") }}
+          <span class="text-pen">red-pen text</span>
+        </div>
+      </div>
+      {{- end }}
+    </div>
+  </section>
+
+  {{/* ---------- Typography ---------- */}}
+  <section class="mb-20" aria-labelledby="type">
+    <h2 id="type" class="{{ $h2 }}">Typography</h2>
+    <div class="mt-8 grid gap-6 md:grid-cols-3">
+      <div class="card p-6"><p class="{{ $label }}">font-display</p><p class="font-display text-4xl font-black text-fg">Zen Kaku 漢字</p><p class="mt-2 text-sm text-subtle">Zen Kaku Gothic New 700/900: headings, quotes, drop cap</p></div>
+      <div class="card p-6"><p class="{{ $label }}">font-sans</p><p class="text-3xl font-semibold text-fg">Inter, body text</p><p class="mt-2 text-sm text-subtle">Inter 400–700: body, UI, card titles</p></div>
+      <div class="card p-6"><p class="{{ $label }}">font-hand</p><p class="font-hand text-4xl font-semibold text-pen">margin notes</p><p class="mt-2 text-sm text-subtle">Caveat 600: labels, captions, one note per screen</p></div>
+    </div>
+    <div class="mt-6 space-y-4 card p-6 sm:p-8">
+      <p class="text-6xl/none font-black tracking-tight text-fg">Hero 6xl</p>
+      <p class="text-5xl/tight font-black tracking-tight text-fg">Page title 5xl</p>
+      <p class="text-3xl font-black tracking-tight text-fg">Section 3xl</p>
+      <p class="font-sans text-xl font-semibold text-fg">Card title, Inter xl</p>
+      <p class="text-lg/8 text-body">Body text, lg with relaxed leading, for long-form reading.</p>
+      <p class="text-sm text-subtle">Meta · January 8, 2017 · 11 min read</p>
+    </div>
+  </section>
+
+  {{/* ---------- Components ---------- */}}
+  <section class="mb-20" aria-labelledby="components">
+    <h2 id="components" class="{{ $h2 }}">Components</h2>
+    <div class="mt-8 grid gap-6 lg:grid-cols-2">
+      <div class="card p-6">
+        <p class="{{ $label }}">buttons</p>
+        <div class="flex flex-wrap items-center gap-3">
+          {{ partial "components/button.html" (dict "href" "#components" "text" "Primary") }}
+          {{ partial "components/button.html" (dict "href" "#components" "text" "Secondary" "variant" "secondary") }}
+          {{ partial "components/button.html" (dict "href" "#components" "text" "Link" "variant" "link") }}
+        </div>
+      </div>
+      <div class="card p-6">
+        <p class="{{ $label }}">chips, links, emphasis</p>
+        <div class="flex flex-wrap items-center gap-4">
+          {{ range first 3 site.Taxonomies.categories.Alphabetical }}{{ partial "components/category-chip.html" (dict "term" .Page) }}{{ end }}
+        </div>
+        <p class="mt-5 text-lg">A <a href="#components" class="link-pen">link-pen link</a> and a <span class="pen-underline font-display font-black text-fg">pen-underline</span>.</p>
+      </div>
+      <div class="card p-6">
+        <p class="{{ $label }}">furigana</p>
+        <p lang="ja" class="text-3xl/loose font-bold text-fg"><ruby lang="ja">毎日<rp>(</rp><rt>まいにち</rt><rp>)</rp></ruby>、<ruby lang="ja">漢字<rp>(</rp><rt>かんじ</rt><rp>)</rp></ruby>を<ruby lang="ja">勉強<rp>(</rp><rt>べんきょう</rt><rp>)</rp></ruby>する。</p>
+      </div>
+      <div class="card p-6">
+        <p class="{{ $label }}">shadows</p>
+        <div class="flex flex-wrap gap-6">
+          <span class="card px-4 py-3 shadow-paper">shadow-paper</span>
+          <span class="card px-4 py-3 shadow-paper-lg">shadow-paper-lg</span>
+          <span class="rounded-lg bg-btn px-4 py-3 font-semibold text-btn-fg shadow-press">shadow-press</span>
+        </div>
+      </div>
+    </div>
+    <div class="mt-6 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {{ range first 3 (where site.RegularPages "Section" "blog").ByPublishDate.Reverse }}
+        {{ partial "components/post-card.html" (dict "page" .) }}
+      {{ end }}
+    </div>
+  </section>
+
+  {{/* ---------- Prose ---------- */}}
+  <section aria-labelledby="prose">
+    <h2 id="prose" class="{{ $h2 }}">Long-form text</h2>
+    <div class="container-prose mt-8 rounded-md bg-surface py-4 sm:px-8">
+      <div class="dropcap prose-genko prose prose-lg max-w-none">
+        <p>Kanji is one of the toughest parts of learning Japanese. Posts open with a red drop cap, links get a <a href="#prose">red-pen underline</a>, and readings sit above the kanji: the <ruby lang="ja">先<rp>(</rp><rt>せん</rt><rp>)</rp>生<rp>(</rp><rt>せい</rt><rp>)</rp></ruby> would quiz us every week.</p>
+        <h2>A section heading</h2>
+        <blockquote><p>Quotes become a tinted card with an ink outline.</p></blockquote>
+        <ul><li>Bullets are red-pen dots</li><li>Lists keep the body rhythm</li></ul>
+      </div>
+    </div>
+  </section>
+</div>
+{{ end }}

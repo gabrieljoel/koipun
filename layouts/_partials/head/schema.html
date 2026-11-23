@@ -1,0 +1,100 @@
+{{- $p := .page -}}
+{{- $home := site.Home.Permalink -}}
+{{- $orgID := printf "%s#organization" $home -}}
+{{- $siteID := printf "%s#website" $home -}}
+{{- $authorID := printf "%s#founder" (absURL site.Params.author.url) -}}
+
+{{- $logo := dict -}}
+{{- with resources.Get site.Params.organization.logo -}}
+  {{- $l := .Process "png" -}}
+  {{- $logo = dict "@type" "ImageObject" "url" $l.Permalink "width" $l.Width "height" $l.Height -}}
+{{- end -}}
+
+{{- $graph := slice
+  (dict
+    "@type" "Organization"
+    "@id" $orgID
+    "name" site.Params.organization.name
+    "url" $home
+    "logo" $logo
+    "sameAs" site.Params.organization.sameAs
+    "founder" (dict "@id" $authorID)
+  )
+  (dict
+    "@type" "WebSite"
+    "@id" $siteID
+    "url" $home
+    "name" site.Title
+    "description" site.Params.description
+    "inLanguage" (site.Language.Locale | default "en-US")
+    "publisher" (dict "@id" $orgID)
+  )
+  (dict
+    "@type" "Person"
+    "@id" $authorID
+    "name" site.Params.author.name
+    "url" (absURL site.Params.author.url)
+    "sameAs" (site.Params.author.sameAs | default slice)
+    "worksFor" (dict "@id" $orgID)
+  )
+-}}
+
+{{- /* ---------- The current page ---------- */ -}}
+{{- $node := dict
+  "@id" (printf "%s#webpage" .canonical)
+  "url" .canonical
+  "name" (or $p.Params.seoTitle $p.Title site.Title)
+  "description" (.description | htmlUnescape)
+  "isPartOf" (dict "@id" $siteID)
+  "inLanguage" (site.Language.Locale | default "en-US")
+-}}
+{{- with .image }}{{ $node = merge $node (dict "primaryImageOfPage" (dict "@type" "ImageObject" "url" .Permalink "width" .Width "height" .Height)) }}{{ end -}}
+
+{{- if and $p.IsPage (eq $p.Section "blog") -}}
+  {{- $sections := slice }}{{ range $p.GetTerms "categories" }}{{ $sections = $sections | append .LinkTitle }}{{ end -}}
+  {{- $keywords := slice }}{{ range $p.GetTerms "tags" }}{{ $keywords = $keywords | append .LinkTitle }}{{ end -}}
+  {{- $node = merge $node (dict
+    "@type" "BlogPosting"
+    "headline" ($p.Title | truncate 110 | htmlUnescape)
+    "mainEntityOfPage" .canonical
+    "datePublished" ($p.PublishDate.Format "2006-01-02T15:04:05Z07:00")
+    "dateModified" ($p.Lastmod.Format "2006-01-02T15:04:05Z07:00")
+    "author" (dict "@id" $authorID)
+    "publisher" (dict "@id" $orgID)
+    "wordCount" $p.WordCount
+    "timeRequired" (printf "PT%dM" $p.ReadingTime)
+    "articleSection" $sections
+    "keywords" $keywords
+  ) -}}
+  {{- with .image }}{{ $node = merge $node (dict "image" .Permalink) }}{{ end -}}
+  {{- with $p.Params.interviewee -}}
+    {{- $who := dict "@type" "Person" "name" .name -}}
+    {{- with .url }}{{ $who = merge $who (dict "url" .) }}{{ end -}}
+    {{- $node = merge $node (dict "about" $who) -}}
+  {{- end -}}
+{{- else if and $p.IsSection (eq $p.Section "blog") -}}
+  {{- $node = merge $node (dict "@type" "Blog" "publisher" (dict "@id" $orgID)) -}}
+{{- else if $p.IsHome -}}
+  {{- $node = merge $node (dict "@type" "WebPage" "about" (dict "@id" $orgID)) -}}
+{{- else if eq $p.Kind "page" -}}
+  {{- $type := "WebPage" -}}
+  {{- if eq $p.RelPermalink "/about/" }}{{ $type = "AboutPage" }}{{ end -}}
+  {{- $node = merge $node (dict "@type" $type) -}}
+{{- else -}}
+  {{- $node = merge $node (dict "@type" "CollectionPage") -}}
+{{- end -}}
+{{- $graph = $graph | append $node -}}
+
+{{- /* ---------- Breadcrumbs ---------- */ -}}
+{{- if not $p.IsHome -}}
+  {{- $items := slice -}}
+  {{- $i := 0 -}}
+  {{- range $p.Ancestors.Reverse -}}
+    {{- $i = add $i 1 -}}
+    {{- $items = $items | append (dict "@type" "ListItem" "position" $i "name" (cond .IsHome "Home" .LinkTitle) "item" .Permalink) -}}
+  {{- end -}}
+  {{- $items = $items | append (dict "@type" "ListItem" "position" (add $i 1) "name" $p.LinkTitle "item" .canonical) -}}
+  {{- $graph = $graph | append (dict "@type" "BreadcrumbList" "@id" (printf "%s#breadcrumb" .canonical) "itemListElement" $items) -}}
+{{- end }}
+
+<script type="application/ld+json">{{ dict "@context" "https://schema.org" "@graph" $graph | jsonify | safeJS }}</script>

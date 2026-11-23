@@ -1,0 +1,12 @@
+{{/* Sections and taxonomy terms: paginated post grid. */}}
+{{ define "main" }}
+<div class="container-page py-16">
+  {{ partial "components/page-header.html" . }}
+  {{ if .Content }}
+    <div class="mb-12 max-w-3xl">{{ with partial "components/prose.html" . }}{{ .Content }}{{ end }}</div>
+  {{ end }}
+  {{ $pager := partial "func/paginator.html" . }}
+  {{ partial "components/post-grid.html" (dict "pages" $pager.Pages "eagerCount" (cond (eq $pager.PageNumber 1) 3 0)) }}
+  {{ partial "components/pagination.html" $pager }}
+</div>
+{{ end }}
