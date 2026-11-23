@@ -64,8 +64,8 @@
     "wordCount" $p.WordCount
     "timeRequired" (printf "PT%dM" $p.ReadingTime)
     "articleSection" $sections
-    "keywords" $keywords
   ) -}}
+  {{- with $keywords }}{{ $node = merge $node (dict "keywords" .) }}{{ end -}}
   {{- with .image }}{{ $node = merge $node (dict "image" .Permalink) }}{{ end -}}
   {{- with $p.Params.interviewee -}}
     {{- $who := dict "@type" "Person" "name" .name -}}
@@ -76,6 +76,15 @@
   {{- $node = merge $node (dict "@type" "Blog" "publisher" (dict "@id" $orgID)) -}}
 {{- else if $p.IsHome -}}
   {{- $node = merge $node (dict "@type" "WebPage" "about" (dict "@id" $orgID)) -}}
+{{- else if eq $p.Layout "listing" -}}
+  {{- /* Curated hub (e.g. /how-to-learn-japanese/): a CollectionPage listing its posts */ -}}
+  {{- $items := slice -}}
+  {{- with site.GetPage (printf "/categories/%s" $p.Params.listCategory) -}}
+    {{- range $i, $post := .Pages.ByPublishDate.Reverse -}}
+      {{- $items = $items | append (dict "@type" "ListItem" "position" (add $i 1) "url" $post.Permalink "name" ($post.Title | htmlUnescape)) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $node = merge $node (dict "@type" "CollectionPage" "mainEntity" (dict "@type" "ItemList" "numberOfItems" (len $items) "itemListElement" $items)) -}}
 {{- else if eq $p.Kind "page" -}}
   {{- $type := "WebPage" -}}
   {{- if eq $p.RelPermalink "/about/" }}{{ $type = "AboutPage" }}{{ end -}}
