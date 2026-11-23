@@ -125,7 +125,7 @@
   --body: #dcd4c7;
   --muted: var(--color-sumi-400);
   --subtle: var(--color-sumi-400);
-  --line: var(--color-sumi-750);
+  --line: var(--color-sumi-600);      /* outlines: 3.2:1 on surface, 3.0:1 on raised */
   --hairline: var(--color-sumi-750);
   --grid: rgb(255 255 255 / 0.05);
   --pen: var(--color-koi-400);
@@ -172,7 +172,7 @@
 /* ---------- Base ---------- */
 @layer base {
   html {
-    @apply scroll-smooth antialiased;
+    @apply antialiased motion-safe:scroll-smooth;
     -webkit-text-size-adjust: 100%;
   }
   body {
@@ -246,9 +246,9 @@
   @apply rounded-md border-2 border-line bg-raised;
 }
 
-/* Interactive paper: lifts off the desk on hover */
+/* Interactive paper: lifts off the desk on hover (no movement with prefers-reduced-motion) */
 @utility lift {
-  @apply transition hover:-translate-y-0.5 hover:shadow-paper;
+  @apply transition hover:shadow-paper motion-safe:hover:-translate-y-0.5;
 }
 
 /* Handwritten red-pen label: categories, eyebrows, tags */

@@ -72,7 +72,7 @@ Two scales plus one line color. Tailwind's default palette is **removed**, so on
 | `sumi-500` | `#8C8478` | |
 | `sumi-600` | `#6B645C` | Meta text: dates, breadcrumbs |
 | `sumi-700` | `#4A453F` | Secondary text |
-| `sumi-750` | `#3A352E` | Night rule: borders in dark mode |
+| `sumi-750` | `#3A352E` | Night rule: hairlines in dark mode |
 | `sumi-800` | `#2A2622` | Body text |
 | `sumi-850` | `#1C1915` | Night paper: cards in dark mode |
 | **`sumi-900`** | **`#1C1A17`** | **Ink**: headings, outlines, offset shadows |
@@ -93,7 +93,7 @@ Components never name a primitive. They name a **role**, and each theme decides 
 | `body` | Long-form text | sumi-800 | `#DCD4C7` | white 92% |
 | `muted` | Secondary text | sumi-700 | sumi-400 | white 88% |
 | `subtle` | Meta: dates, counts | sumi-600 | sumi-400 | white 78% |
-| `line` | Ink outlines | sumi-900 | sumi-750 | white |
+| `line` | Ink outlines | sumi-900 | sumi-600 (3.2:1 on surface, 3.0:1 on raised) | white |
 | `hairline` | Quiet separators | sumi-200 | sumi-750 | white 25% |
 | `grid` | Grid-paper lines | grid blue | white 5% | n/a (pattern) |
 | `pen` | Red-pen **text** | koi-700 | koi-400 | koi-200 |
@@ -186,7 +186,7 @@ All live in `layouts/_partials/components/`. Compose these rather than inventing
 | Button: `primary` | Koi red, white text, `shadow-press` edge, presses down on click. **One per view.** |
 | Button: `secondary` | Ink-outlined paper (`border-2 border-line bg-raised`) |
 | Button: `link` | Red-pen underlined text: the quiet second action beside a primary |
-| `card` + `lift` | Paper sheet with ink outline. Add `lift` when it is clickable (raises 2 px with `shadow-paper`). |
+| `card` + `lift` | Paper sheet with ink outline. Add `lift` when it is clickable (raises 2 px with `shadow-paper`; no movement under `prefers-reduced-motion`). |
 | `category-chip` | Handwritten red-pen pill (`chip-hand`), lowercased label from the term's `short:` field |
 | `hero` | Note + headline with `pen-underline` on the `*emphasized*` word + CTAs + tilted photo with handwritten caption |
 | `post-card` | Card: 16:9 image, chip, Inter title, 3-line excerpt, meta footer |
