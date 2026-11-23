@@ -17,6 +17,8 @@
 # ---------------------------------------------------------------- Security headers (every response)
 # The site ships no JavaScript, so the CSP allows none. Inline styles: the font @font-face block and
 # the brand-pattern background. Frames: YouTube (privacy-enhanced) and Spreaker embeds in old posts.
+# connect-src 'self' lets Lighthouse/PageSpeed fetch /robots.txt from the page (it reports "robots.txt
+# not valid" otherwise); no script ships, so nothing else uses it.
 [[headers]]
   for = "/*"
   [headers.values]
@@ -31,6 +33,7 @@
       style-src 'self' 'unsafe-inline'; \
       font-src 'self'; \
       manifest-src 'self'; \
+      connect-src 'self'; \
       frame-src https://www.youtube-nocookie.com https://widget.spreaker.com; \
       base-uri 'none'; \
       form-action 'none'; \
