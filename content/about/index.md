@@ -4,6 +4,7 @@ description: Koipun is built by Gabriel J. Pérez Irizarry, a lifelong Japanese 
 image: gabriel.jpg
 imageAlt: "Gabriel J. Pérez Irizarry in a yukata in a Japanese garden"
 ogImage: social.jpg   # landscape crop for the social card
+ogImageAlt: "Gabriel J. Pérez Irizarry smiling in front of a wooden temple hall and autumn leaves"
 ---
 
 ## Story

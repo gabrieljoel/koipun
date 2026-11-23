@@ -62,6 +62,8 @@ authors: [gabriel-j-perez-irizarry]                       # term keys (slugs) â€
 categories: [how-i-learned-japanese-an-interview-series]   # display names live in content/{authors,categories}/
 tags: [anki, kanji]
 imageAlt: Describe featured.jpg
+ogImage: social.jpg                       # optional: hand-made landscape crop for the social card
+ogImageAlt: Describe social.jpg           # when ogImage shows something other than featured.jpg
 interviewee: { name: Jane Doe, url: https://â€¦, level: JLPT N2 }   # interviews only
 ---
 ![Alt text](photo.jpg "Optional caption")
