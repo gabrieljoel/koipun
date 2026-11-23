@@ -1,0 +1,13 @@
+{{- /*
+  Posts a curated hub (layout: listing) shows. Front matter, either:
+    listCategory: <category term key>      every post in that category
+    listPages: [/blog/<slug>, …]           hand-picked posts, in this order
+  Returns: page collection (newest first for a category)
+*/ -}}
+{{- $pages := slice -}}
+{{- with .Params.listPages -}}
+  {{- range . }}{{ with site.GetPage . }}{{ $pages = $pages | append . }}{{ else }}{{ errorf "listPages: %q not found" . }}{{ end }}{{ end -}}
+{{- else -}}
+  {{- with site.GetPage (printf "/categories/%s" .Params.listCategory) }}{{ $pages = .Pages.ByPublishDate.Reverse }}{{ end -}}
+{{- end -}}
+{{- return $pages -}}

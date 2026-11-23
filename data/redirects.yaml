@@ -17,7 +17,6 @@ legacy:
   - { from: /reader, to: / }
   - { from: /newsletter, to: /blog/ }
   - { from: /learnmore/*, to: /how-to-learn-japanese/ }
-  - { from: /learn-japanese-with-games-and-manga, to: /blog/ }
   - { from: /privacy, to: /privacy-and-terms/ }            # old Django site and classroom.koipun.com
   # 2016 site
   - { from: /2016/08/01/a-visual-study-method-for-heisigs-remembering-the-kanji, to: /blog/learn-kanji-heisig/ }

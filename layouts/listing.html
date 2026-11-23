@@ -1,6 +1,6 @@
 {{/*
-  Curated landing page listing one category's posts.
-  Front matter: layout: listing, listCategory: <category term key>
+  Curated hub page: intro + a grid of posts.
+  Front matter: layout: listing, and listCategory or listPages (see func/listing-pages.html)
 */}}
 {{ define "main" }}
 <div class="container-page py-16">
@@ -8,8 +8,6 @@
   {{ if .Content }}
     <div class="mb-12 max-w-3xl">{{ with partial "components/prose.html" . }}{{ .Content }}{{ end }}</div>
   {{ end }}
-  {{ with site.GetPage (printf "/categories/%s" .Params.listCategory) }}
-    {{ partial "components/post-grid.html" (dict "pages" .Pages.ByPublishDate.Reverse "eagerCount" 3 "heading" "h2") }}
-  {{ end }}
+  {{ partial "components/post-grid.html" (dict "pages" (partial "func/listing-pages.html" .) "eagerCount" 3 "heading" "h2") }}
 </div>
 {{ end }}

@@ -160,6 +160,10 @@ disableKinds = []
   weight = 30
 
 [[menus.footer]]
+  name = "Games, Anime & Manga"
+  pageRef = "/learn-japanese-with-games-and-manga"
+  weight = 5
+[[menus.footer]]
   name = "About"
   pageRef = "/about"
   weight = 10

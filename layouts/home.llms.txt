@@ -9,7 +9,7 @@ Koipun is an archive (2015–2019) of interviews with people who learned Japanes
 {{- end }}
 
 ## Start here
-{{ range slice "/how-to-learn-japanese" "/anki" "/about" }}{{ with site.GetPage . }}{{ template "llms-link" . }}{{ end }}{{ end }}
+{{ range slice "/how-to-learn-japanese" "/learn-japanese-with-games-and-manga" "/anki" "/about" }}{{ with site.GetPage . }}{{ template "llms-link" . }}{{ end }}{{ end }}
 
 {{- /* Categories in reading order; any new category is appended after these */ -}}
 {{- $order := slice "how-i-learned-japanese-an-interview-series" "my-japanese-journey" "follow-the-koipun-story" -}}
