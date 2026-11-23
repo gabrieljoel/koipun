@@ -2,6 +2,7 @@
 title: "Learning Japanese with Anki and video games"
 description: "Alan tells us how he uses Anki SRS and video games to learn Japanese. He also explains how blogging keeps him motivated."
 date: 2017-01-13T01:27:00+00:00
+lastmod: 2017-01-13T01:27:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [how-i-learned-japanese-an-interview-series]
 image: featured.jpg

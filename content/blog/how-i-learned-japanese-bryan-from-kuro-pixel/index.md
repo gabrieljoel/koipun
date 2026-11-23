@@ -2,6 +2,7 @@
 title: "JLPT N1 Study Materials and Habits for Success"
 description: "Bryan tells us how he passed the JLPT N1 and about his experiences living in Japan and participating in the JET Programme."
 date: 2017-02-18T00:00:00+00:00
+lastmod: 2017-02-18T00:00:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [how-i-learned-japanese-an-interview-series]
 image: featured.jpg

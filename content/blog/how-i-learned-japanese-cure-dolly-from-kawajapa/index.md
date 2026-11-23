@@ -2,6 +2,7 @@
 title: "Learn Japanese Vocabulary Organically"
 description: "Cure Dolly, explains her organic method for learning Japanese through immersion and how to turn off your English circuits."
 date: 2017-03-05T19:50:00+00:00
+lastmod: 2017-03-05T19:50:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [how-i-learned-japanese-an-interview-series]
 image: featured.jpg

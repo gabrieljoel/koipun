@@ -3,6 +3,7 @@ title: "September Month in Review - Explainer video pre-production edition"
 seoTitle: "September Month in Review - On making an explainer video"
 description: "3,269 page views and $54.00 dollars in revenue"
 date: 2017-10-08T14:59:00+00:00
+lastmod: 2017-10-08T14:59:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [follow-the-koipun-story]
 image: featured.jpg

@@ -2,6 +2,7 @@
 title: "JLPT N2 Practice Tips and Experiences"
 description: "Jeffrey has taken the JLPT N2 twice and tells us how he prepared for the test and about his experiences working in a Japanese restaurant."
 date: 2017-02-02T19:14:00+00:00
+lastmod: 2017-02-02T19:14:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [how-i-learned-japanese-an-interview-series]
 image: featured.jpg

@@ -2,6 +2,7 @@
 title: "January Month in Review"
 description: "996 page views and $54 US dollars in revenue"
 date: 2017-02-02T00:00:00+00:00
+lastmod: 2017-02-02T00:00:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [follow-the-koipun-story]
 image: featured.jpg

@@ -2,6 +2,7 @@
 title: "Japanese Language Learning Using Linguistics"
 description: "Jay shares his linguistics based approach to learning Japanese and how he is using those insights to create his own Japanese learning materials."
 date: 2017-03-26T00:00:00+00:00
+lastmod: 2017-03-26T00:00:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [how-i-learned-japanese-an-interview-series]
 image: featured.jpg

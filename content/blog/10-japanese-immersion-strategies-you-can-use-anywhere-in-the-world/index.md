@@ -2,6 +2,7 @@
 title: "10 Japanese Immersion Strategies"
 description: "10 Japanese immersion strategies you can use anywhere in the world. Learn some strategies to fit in more Japanese learning throughout the day."
 date: 2017-03-21T13:19:00+00:00
+lastmod: 2017-03-21T13:19:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [my-japanese-journey]
 image: featured.jpg

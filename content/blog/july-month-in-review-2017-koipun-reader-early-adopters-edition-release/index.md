@@ -3,6 +3,7 @@ title: "July Month in Review - Koipun Reader Early Adopters Edition Release"
 seoTitle: "Koipun Reader Early Adopters Edition Release"
 description: "One new product. 1,576 page views and $108.00 dollars in revenue"
 date: 2017-08-21T03:51:00+00:00
+lastmod: 2017-08-21T03:51:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [follow-the-koipun-story]
 image: featured.jpg

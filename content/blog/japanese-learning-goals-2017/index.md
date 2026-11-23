@@ -2,6 +2,7 @@
 title: "4 Japanese Learning Goals for 2017"
 description: "My 4 Japanese Learning goals for 2017. Following the 80/20 principle, I will focus on these four goals to get my Japanese to the next level."
 date: 2017-01-25T19:55:00+00:00
+lastmod: 2017-01-25T19:55:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [my-japanese-journey]
 image: featured.jpg

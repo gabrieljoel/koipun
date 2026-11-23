@@ -3,6 +3,7 @@ title: "Learning Japanese in Kyoto, language learning as a \"love story\""
 seoTitle: "Learning Japanese in Kyoto. Zero to JLPT N1 in 3 years"
 description: "Elena went from zero to passing the JLPT N1 in three years. Learn about how she did it while living in Kyoto and later London."
 date: 2017-09-30T02:44:00+00:00
+lastmod: 2017-09-30T02:44:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [how-i-learned-japanese-an-interview-series]
 image: featured.jpg

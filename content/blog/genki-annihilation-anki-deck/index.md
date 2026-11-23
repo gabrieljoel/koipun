@@ -2,6 +2,7 @@
 title: "Strengthening your Genki studies with the Genki Annihilation Deck"
 description: "How to use the Genki Annihilation Anki deck — native audio, furigana and lesson tags — to retain GENKI grammar and vocabulary."
 date: 2015-03-21
+lastmod: 2015-03-21
 authors: [gabriel-j-perez-irizarry]
 categories: [my-japanese-journey]
 tags: [anki, genki, spaced repetition]

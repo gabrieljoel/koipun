@@ -3,6 +3,7 @@ title: "Manga Sensei interviewed me about learning Japanese and Koipun"
 seoTitle: "Manga Sensei Interviewed me about learning Japanese"
 description: "Learn about English teaching in Japan as a JET and language learning through classic RPG games."
 date: 2018-04-23T15:24:00+00:00
+lastmod: 2018-04-23T15:24:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [follow-the-koipun-story]
 image: featured.jpg

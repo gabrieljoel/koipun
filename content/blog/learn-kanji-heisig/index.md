@@ -3,6 +3,7 @@ title: "How to Learn Kanji: A visual study method for Heisig's Remembering the K
 seoTitle: "How to learn Kanji: A visual method with Heisig's RTK"
 description: "Learn how to learn Kanji with Heisig's Remembering the Kanji and a study method that makes the most out of visual memory."
 date: 2017-01-08T03:08:00+00:00
+lastmod: 2017-01-08T03:08:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [my-japanese-journey]
 image: featured.jpg

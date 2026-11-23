@@ -2,6 +2,7 @@
 title: "Private Japanese lessons for mastery"
 description: "Eriko-sensei has been teahing Japanese professionally for over ten years. Learn from a techer's perspective how to achieve your learning goals."
 date: 2018-04-12T15:24:00+00:00
+lastmod: 2018-04-12T15:24:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [how-i-learned-japanese-an-interview-series]
 image: featured.jpg

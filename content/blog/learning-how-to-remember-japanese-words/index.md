@@ -2,6 +2,7 @@
 title: "Learning how to remember Japanese words"
 description: "Gabriel Wyner went from Opera singer to language learning author. He shares his Anki flashcards focused method to learn Japanese."
 date: 2017-09-11T21:55:00+00:00
+lastmod: 2017-09-11T21:55:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [how-i-learned-japanese-an-interview-series]
 image: featured.jpg

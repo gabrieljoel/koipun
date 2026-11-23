@@ -2,6 +2,7 @@
 title: "What is the counter word for kanji?"
 description: "How can you count kanji in Japanese? The answer is simple enough."
 date: 2017-01-25T00:00:00+00:00
+lastmod: 2017-01-25T00:00:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [my-japanese-journey]
 image: featured.jpg

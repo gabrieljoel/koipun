@@ -3,6 +3,7 @@ title: "How to become a Japanese Translator. One path, from childhood dream to p
 seoTitle: "How to become a Japanese Translator."
 description: "Carley shares her Japanese learning experiences, from being a strong willed sixth grader to going to the JET Programme and working in Japan."
 date: 2017-05-01T13:22:00+00:00
+lastmod: 2017-05-01T13:22:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [how-i-learned-japanese-an-interview-series]
 image: featured.jpg

@@ -3,6 +3,7 @@ title: "Top five Manga to Learn Japanese"
 seoTitle: "Top 5 Manga for Learning Japanese!"
 description: "Want to know which manga are right for you? We've got some of the best Manga to learn Japanese right here!"
 date: 2017-06-18T20:08:00+00:00
+lastmod: 2017-06-18T20:08:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [my-japanese-journey]
 image: featured.jpg

@@ -2,6 +2,7 @@
 title: "Using Anki to learn Hiragana"
 description: "How to use Anki and spaced repetition to learn hiragana — setup steps and tips for building a daily review habit."
 date: 2015-02-07
+lastmod: 2015-02-07
 authors: [gabriel-j-perez-irizarry]
 categories: [my-japanese-journey]
 tags: [anki, hiragana, spaced repetition]

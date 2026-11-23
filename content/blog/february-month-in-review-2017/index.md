@@ -2,6 +2,7 @@
 title: "February Month in Review"
 description: "1,069 page views and $108 US dollars in revenue"
 date: 2017-03-06T00:00:00+00:00
+lastmod: 2017-03-06T00:00:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [follow-the-koipun-story]
 image: featured.jpg

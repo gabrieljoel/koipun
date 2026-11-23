@@ -2,6 +2,7 @@
 title: "June Month in Review"
 description: "4,675 page views and $18.00 dollars in revenue"
 date: 2017-07-08T10:55:00+00:00
+lastmod: 2017-07-08T10:55:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [follow-the-koipun-story]
 image: featured.jpg

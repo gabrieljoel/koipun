@@ -4,7 +4,7 @@ title = "Koipun"
 copyright = "Gabriel J. Pérez Irizarry"
 enableRobotsTXT = true
 removePathAccents = true
-enableGitInfo = false            # flip to true once content history lives in git (drives lastmod)
+enableGitInfo = true             # lastmod for pages without one (see Dates below)
 timeZone = "UTC"
 disableAliases = true          # renamed pages and page/1/ get real 301s in _redirects (layouts/home.redirects)
 summaryLength = 40
@@ -83,6 +83,13 @@ disableKinds = []
 
 [services.rss]
   limit = -1                     # full archive in feeds
+
+# ---------------------------------------------------------------- Dates
+# Migrated posts carry an explicit lastmod (= their original date), so the 2026 migration commit
+# doesn't re-date them. Git dates the rest (About, Anki, Help, terms…). Bump lastmod when you
+# materially edit a post.
+[frontmatter]
+  lastmod = ['lastmod', ':git', 'date', 'publishDate']
 
 [sitemap]
   changeFreq = ""

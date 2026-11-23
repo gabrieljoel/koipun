@@ -2,6 +2,7 @@
 title: "How to speak Japanese fluently. Making 10,000 mistakes."
 description: "John's experience as a missionary in Japan motivated him to master Japanese. He shares how making mistakes is a key step for learning."
 date: 2018-07-19T13:22:00+00:00
+lastmod: 2018-07-19T13:22:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [how-i-learned-japanese-an-interview-series]
 image: featured.jpg

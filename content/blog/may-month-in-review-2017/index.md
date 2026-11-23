@@ -2,6 +2,7 @@
 title: "May Month in Review"
 description: "3,859 page views and $54.00 dollars in revenue"
 date: 2017-06-15T03:06:00+00:00
+lastmod: 2017-06-15T03:06:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [follow-the-koipun-story]
 image: featured.jpg

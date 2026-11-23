@@ -2,6 +2,7 @@
 title: "Learning Japanese by simply listening and reading"
 description: "Pyry shares how focusing on simply communicating in Japanese can reap the biggest rewards and what communication really means."
 date: 2017-05-10T15:39:00+00:00
+lastmod: 2017-05-10T15:39:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [how-i-learned-japanese-an-interview-series]
 image: featured.jpg

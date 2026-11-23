@@ -3,6 +3,7 @@ title: "Japanese Language Learning from the Classroom to the Workplace and Beyon
 seoTitle: "Japanese Learning from the Classroom to Work"
 description: "Jenny majored in Japanese and shares how she developed a career where she can use Japanese for work."
 date: 2017-04-21T00:00:00+00:00
+lastmod: 2017-04-21T00:00:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [how-i-learned-japanese-an-interview-series]
 image: featured.jpg

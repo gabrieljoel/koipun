@@ -3,6 +3,7 @@ title: "Reading Japanese Books for Mastery. Wisdom from twenty years of studying
 seoTitle: "Reading Japanese Books to Master Japanese"
 description: "Locksleyu shares how he has read dozens of novels in Japanese and translates some of them for pleasure. All while living outside of Japan."
 date: 2017-02-21T05:12:00+00:00
+lastmod: 2017-02-21T05:12:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [how-i-learned-japanese-an-interview-series]
 image: featured.jpg

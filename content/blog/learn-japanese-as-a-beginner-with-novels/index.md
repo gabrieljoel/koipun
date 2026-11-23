@@ -3,6 +3,7 @@ title: "How to make a habit of reading in Japanese in an era of constant interru
 seoTitle: "How to make a habit of reading in Japanese"
 description: "Inhae shows us how to develop habits that turn our guilty pleasures into Japanese learning opportunities, turning games and novels, from mere fun to education."
 date: 2019-01-24T01:28:00+00:00
+lastmod: 2019-01-24T01:28:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [how-i-learned-japanese-an-interview-series]
 image: featured.jpg

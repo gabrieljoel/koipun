@@ -2,6 +2,7 @@
 title: "Japanese study methods based on incredible experiences"
 description: "Jennifer shares how she continuously experiments with her learning methods and the story behind the learning insights she has striven for."
 date: 2017-05-08T14:34:00+00:00
+lastmod: 2017-05-08T14:34:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [how-i-learned-japanese-an-interview-series]
 image: featured.jpg

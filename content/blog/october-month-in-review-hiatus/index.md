@@ -2,6 +2,7 @@
 title: "October Month in Review - Hiatus"
 description: "On the future of Koipun and why I will shift my focus to other projects."
 date: 2017-11-11T00:00:00+00:00
+lastmod: 2017-11-11T00:00:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [follow-the-koipun-story]
 image: featured.jpg

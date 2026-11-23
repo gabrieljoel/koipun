@@ -3,6 +3,7 @@ title: "Learn Japanese with Chrono Trigger, the timeless classic Super Famicon J
 seoTitle: "Learn Japanese with what some consider one of the best games ever"
 description: "Find one out one way to learn Japanese while playing what is widely considered one of the best video games of all time."
 date: 2018-03-14T02:28:00+00:00
+lastmod: 2018-03-14T02:28:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [follow-the-koipun-story]
 image: featured.jpg

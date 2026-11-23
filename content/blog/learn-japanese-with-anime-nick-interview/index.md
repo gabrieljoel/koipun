@@ -3,6 +3,7 @@ title: "Learn Japanese with anime. Balance deliberate study and fun!"
 seoTitle: "Learn Japanese with anime. Balance fun and study!"
 description: "Nick has developed a five step system to learn Japanese from anime. Learn by his example how to achieve basic fluency fast!"
 date: 2018-07-29T21:16:00+00:00
+lastmod: 2018-07-29T21:16:00+00:00
 authors: [gabriel-j-perez-irizarry]
 categories: [how-i-learned-japanese-an-interview-series]
 image: featured.jpg
